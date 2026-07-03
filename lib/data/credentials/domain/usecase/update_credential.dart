@@ -1,0 +1,32 @@
+import 'package:archive_secure/data/credentials/domain/entity/credential.dart';
+import 'package:archive_secure/data/credentials/domain/repository/credential_repository.dart';
+
+class UpdateCredential {
+  UpdateCredential({required this._repository});
+
+  final CredentialRepository _repository;
+
+  Future<Credential> call(
+    String id, {
+    String? serviceName,
+    String? loginEmail,
+    String? username,
+    String? password,
+    String? categoryId,
+    String? notes,
+    List<String>? tags,
+    int? strength,
+  }) async {
+    return await _repository.updateCredential(
+      id,
+      serviceName: serviceName,
+      loginEmail: loginEmail,
+      username: username,
+      password: password,
+      categoryId: categoryId,
+      notes: notes,
+      tags: tags,
+      strength: strength,
+    );
+  }
+}

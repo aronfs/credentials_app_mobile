@@ -1,0 +1,1 @@
+const imageMain = "assets/icons/icon.png";
