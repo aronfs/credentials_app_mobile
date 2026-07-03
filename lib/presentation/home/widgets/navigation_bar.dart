@@ -51,8 +51,6 @@ class NavigationBarCustom extends StatelessWidget {
         return loc.navCredential;
       case 'category':
         return loc.navCategory;
-      case 'favorites':
-        return 'Favoritos';
       case 'generate':
         return loc.navGenerate;
       case 'profile':

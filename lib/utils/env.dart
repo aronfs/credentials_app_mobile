@@ -8,7 +8,7 @@ class Env {
       case 'staging':
         return 'https://staging-api.nike.com/api/v1';
       case 'development':
-        return 'https://f378-200-24-146-76.ngrok-free.app/api/';
+        return 'https://e309-200-24-146-72.ngrok-free.app/api/';
       default:
         return 'https://api.nike.com/api/v1';
     }

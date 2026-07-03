@@ -4,7 +4,7 @@ final List<String> menuRoutes = [
   '/pages/dashboard',
   '/pages/credential',
   '/pages/category',
-  '/pages/favorites',
+  '/pages/generate',
   '/pages/profile',
 ];
 
@@ -30,8 +30,8 @@ final List<MenuModel> menus = [
   MenuModel(
     idMenu: 4,
     nombre: '',
-    icono: 'favorites',
-    url: '/pages/favorites',
+    icono: 'generate',
+    url: '/pages/generate',
   ),
   MenuModel(
     idMenu: 5,
