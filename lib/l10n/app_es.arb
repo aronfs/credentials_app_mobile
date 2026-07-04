@@ -247,5 +247,12 @@
     "profileImageDelete": "Eliminar foto",
     "profileImageChange": "Cambiar foto de perfil",
     "profileImageUploading": "Subiendo foto...",
-    "profileImageDeleting": "Eliminando foto..."
+    "profileImageDeleting": "Eliminando foto...",
+
+    "appearance": "Apariencia",
+    "theme": "Tema de la aplicación",
+    "themeLight": "Modo Claro",
+    "themeDark": "Modo Oscuro",
+    "themeSystem": "Usar configuración del sistema",
+    "appearanceSection": "Apariencia"
 }

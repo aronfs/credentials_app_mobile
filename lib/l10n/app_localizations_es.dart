@@ -727,4 +727,22 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get profileImageDeleting => 'Eliminando foto...';
+
+  @override
+  String get appearance => 'Apariencia';
+
+  @override
+  String get theme => 'Tema de la aplicación';
+
+  @override
+  String get themeLight => 'Modo Claro';
+
+  @override
+  String get themeDark => 'Modo Oscuro';
+
+  @override
+  String get themeSystem => 'Usar configuración del sistema';
+
+  @override
+  String get appearanceSection => 'Apariencia';
 }

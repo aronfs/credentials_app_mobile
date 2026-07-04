@@ -148,6 +148,7 @@ class _ProfileContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
+    final loc = AppLocalizations.of(context)!;
     final initials = profile.user.name.isNotEmpty
         ? profile.user.name
             .split(' ')
@@ -202,7 +203,7 @@ class _ProfileContent extends StatelessWidget {
               onPressed: () =>
                   context.read<AuthBloc>().add(const LogoutSubmitted()),
               icon: const Icon(Icons.logout),
-              label: const Text('Cerrar sesión'),
+              label: Text(loc.profileLogout),
               style: ElevatedButton.styleFrom(
                 backgroundColor: cs.error,
                 foregroundColor: cs.onError,
@@ -226,6 +227,7 @@ class _SecuritySettingsTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
     final tt = Theme.of(context).textTheme;
+    final loc = AppLocalizations.of(context)!;
 
     return Container(
       decoration: BoxDecoration(
@@ -249,14 +251,14 @@ class _SecuritySettingsTile extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Ajustes de seguridad',
+                        loc.profileSecuritySettings,
                         style: tt.bodyLarge?.copyWith(
                           fontWeight: FontWeight.w700,
                           color: cs.onSurface,
                         ),
                       ),
                       Text(
-                        'Biometría, PIN y más',
+                        loc.profileSecuritySubtitle,
                         style: tt.bodySmall?.copyWith(
                           color: cs.onSurfaceVariant,
                         ),

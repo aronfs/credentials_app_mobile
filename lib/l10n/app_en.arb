@@ -247,5 +247,12 @@
     "profileImageDelete": "Delete photo",
     "profileImageChange": "Change profile picture",
     "profileImageUploading": "Uploading photo...",
-    "profileImageDeleting": "Deleting photo..."
+    "profileImageDeleting": "Deleting photo...",
+
+    "appearance": "Appearance",
+    "theme": "App Theme",
+    "themeLight": "Light Mode",
+    "themeDark": "Dark Mode",
+    "themeSystem": "Use System Theme",
+    "appearanceSection": "Appearance"
 }

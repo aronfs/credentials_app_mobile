@@ -1,5 +1,7 @@
 import 'package:archive_secure/core/security/biometric_service.dart';
 import 'package:archive_secure/core/security/token_storage.dart';
+import 'package:archive_secure/core/theme/theme_mode_controller.dart';
+import 'package:archive_secure/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -113,13 +115,14 @@ class _SecurityPageState extends State<SecurityPage> {
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
     final tt = Theme.of(context).textTheme;
+    final loc = AppLocalizations.of(context)!;
 
     return Scaffold(
       backgroundColor: cs.surface,
       appBar: AppBar(
         backgroundColor: cs.surface,
         title: Text(
-          'Seguridad',
+          loc.profileSecuritySettings,
           style: tt.titleMedium?.copyWith(fontWeight: FontWeight.w700),
         ),
         leading: IconButton(
@@ -129,67 +132,186 @@ class _SecurityPageState extends State<SecurityPage> {
       ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
-          : Padding(
+          : ListView(
               padding: const EdgeInsets.all(16),
+              children: [
+                _BiometricCard(
+                  cs: cs,
+                  tt: tt,
+                  loc: loc,
+                  biometricEnabled: _biometricEnabled,
+                  canUseBiometrics: _canUseBiometrics,
+                  onToggle: _toggle,
+                ),
+                const SizedBox(height: 16),
+                _AppearanceCard(cs: cs, tt: tt, loc: loc),
+              ],
+            ),
+    );
+  }
+}
+
+class _BiometricCard extends StatelessWidget {
+  final ColorScheme cs;
+  final TextTheme tt;
+  final AppLocalizations loc;
+  final bool biometricEnabled;
+  final bool canUseBiometrics;
+  final ValueChanged<bool> onToggle;
+
+  const _BiometricCard({
+    required this.cs,
+    required this.tt,
+    required this.loc,
+    required this.biometricEnabled,
+    required this.canUseBiometrics,
+    required this.onToggle,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+        side: BorderSide(color: cs.outlineVariant),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: cs.secondaryContainer,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Icon(
+                Icons.fingerprint,
+                color: cs.onSecondaryContainer,
+                size: 28,
+              ),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Card(
-                    elevation: 0,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
-                      side: BorderSide(color: cs.outlineVariant),
+                  Text(
+                    loc.biometricUnlockTitle,
+                    style: tt.bodyLarge?.copyWith(
+                      fontWeight: FontWeight.w600,
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: Row(
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.all(12),
-                            decoration: BoxDecoration(
-                              color: cs.secondaryContainer,
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: Icon(
-                              Icons.fingerprint,
-                              color: cs.onSecondaryContainer,
-                              size: 28,
-                            ),
-                          ),
-                          const SizedBox(width: 16),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Inicio con huella',
-                                  style: tt.bodyLarge?.copyWith(
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                                const SizedBox(height: 4),
-                                Text(
-                                  _canUseBiometrics
-                                      ? 'Accede con tu huella o Face ID'
-                                      : 'Biometría no disponible en este dispositivo',
-                                  style: tt.bodySmall?.copyWith(
-                                    color: cs.onSurfaceVariant,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Switch(
-                            value: _biometricEnabled,
-                            onChanged: _canUseBiometrics ? _toggle : null,
-                          ),
-                        ],
-                      ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    canUseBiometrics
+                        ? loc.biometricUnlockSubtitleAvailable
+                        : loc.biometricUnlockSubtitleUnavailable,
+                    style: tt.bodySmall?.copyWith(
+                      color: cs.onSurfaceVariant,
                     ),
                   ),
                 ],
               ),
             ),
+            Switch(
+              value: biometricEnabled,
+              onChanged: canUseBiometrics ? onToggle : null,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _AppearanceCard extends StatelessWidget {
+  final ColorScheme cs;
+  final TextTheme tt;
+  final AppLocalizations loc;
+
+  const _AppearanceCard({
+    required this.cs,
+    required this.tt,
+    required this.loc,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+        side: BorderSide(color: cs.outlineVariant),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: cs.secondaryContainer,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Icon(
+                    Icons.palette_outlined,
+                    color: cs.onSecondaryContainer,
+                    size: 28,
+                  ),
+                ),
+                const SizedBox(width: 16),
+                Text(
+                  loc.appearance,
+                  style: tt.bodyLarge?.copyWith(
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+            ValueListenableBuilder<ThemeMode>(
+              valueListenable: themeNotifier,
+              builder: (context, currentMode, _) {
+                final isDark = currentMode == ThemeMode.dark;
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          isDark ? Icons.dark_mode : Icons.light_mode,
+                          color: cs.onSurfaceVariant,
+                          size: 20,
+                        ),
+                        const SizedBox(width: 12),
+                        Text(
+                          isDark ? loc.themeDark : loc.themeLight,
+                          style: tt.bodyMedium?.copyWith(
+                            color: cs.onSurfaceVariant,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Switch(
+                      value: isDark,
+                      onChanged: (value) {
+                        setAppThemeMode(
+                          value ? ThemeMode.dark : ThemeMode.light,
+                        );
+                      },
+                    ),
+                  ],
+                );
+              },
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

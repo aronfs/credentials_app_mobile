@@ -12,11 +12,8 @@ class AppTheme {
   static ThemeData dark() => _build(AppColorScheme.dark);
 
   static ThemeData _build(ColorScheme scheme) {
-    final isDark = scheme.brightness == Brightness.dark;
     final surface = scheme.surface;
-    final fieldFill = isDark
-        ? scheme.surfaceContainerHighest.withValues(alpha: .42)
-        : Colors.white;
+    final fieldFill = scheme.surfaceContainerHighest.withValues(alpha: .42);
 
     return ThemeData(
       useMaterial3: true,
