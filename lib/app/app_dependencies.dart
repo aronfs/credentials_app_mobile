@@ -1,6 +1,8 @@
 import 'package:archive_secure/core/network/auth_interceptor.dart';
 import 'package:archive_secure/core/security/biometric_service.dart';
 import 'package:archive_secure/core/security/token_storage.dart';
+import 'package:archive_secure/core/services/biometric_auth_service.dart';
+import 'package:archive_secure/core/services/biometric_preferences_service.dart';
 import 'package:archive_secure/data/auth/bloc/auth_bloc.dart';
 import 'package:archive_secure/data/auth/bloc/auth_event.dart';
 import 'package:archive_secure/data/auth/data/auth_repository_impl.dart';
@@ -54,6 +56,8 @@ class AppDependencies {
     required this.tokenStorage,
     required this.authRepository,
     required this.biometricService,
+    required this.biometricAuthService,
+    required this.biometricPreferencesService,
     required this.authBloc,
     required this.categoryBloc,
     required this.credentialBloc,
@@ -66,6 +70,8 @@ class AppDependencies {
   final TokenStorage tokenStorage;
   final AuthRepository authRepository;
   final BiometricService biometricService;
+  final BiometricAuthService biometricAuthService;
+  final BiometricPreferencesService biometricPreferencesService;
   final AuthBloc authBloc;
   final CategoryBloc categoryBloc;
   final CredentialBloc credentialBloc;
@@ -88,6 +94,8 @@ class AppDependencies {
     final authApi = ApiImpl(dio);
     final authRepository = AuthRepositoryImpl(authApi, tokenStorage);
     final biometricService = BiometricService();
+    final biometricAuthService = BiometricAuthService();
+    final biometricPreferencesService = BiometricPreferencesService();
     final authBloc = AuthBloc(
       signIn: SignIn(repository: authRepository),
       verifyPin: VerifyPin(repository: authRepository),
@@ -116,6 +124,8 @@ class AppDependencies {
       tokenStorage: tokenStorage,
       authRepository: authRepository,
       biometricService: biometricService,
+      biometricAuthService: biometricAuthService,
+      biometricPreferencesService: biometricPreferencesService,
       authBloc: authBloc,
       categoryBloc: categoryBloc,
       credentialBloc: credentialBloc,
@@ -174,8 +184,9 @@ class AppDependencies {
     final repository = ProfileRepositoryImpl(dataSource);
     return ProfileBloc(
       getProfileUseCase: GetProfileUseCase(repository: repository),
-      updateProfileNameUseCase:
-          UpdateProfileNameUseCase(repository: repository),
+      updateProfileNameUseCase: UpdateProfileNameUseCase(
+        repository: repository,
+      ),
       changePinUseCase: ChangePinUseCase(repository: repository),
       changePasswordUseCase: ChangePasswordUseCase(repository: repository),
       tokenStorage: tokenStorage,
@@ -188,12 +199,15 @@ class AppDependencies {
     final dataSource = FavoritesRemoteDataSourceImpl(dio);
     final repository = FavoritesRepositoryImpl(dataSource);
     return FavoritesBloc(
-      getFavoriteCredentialsUseCase:
-          GetFavoriteCredentialsUseCase(repository: repository),
-      toggleCredentialFavoriteUseCase:
-          ToggleCredentialFavoriteUseCase(repository: repository),
-      unmarkCredentialFavoriteUseCase:
-          UnmarkCredentialFavoriteUseCase(repository: repository),
+      getFavoriteCredentialsUseCase: GetFavoriteCredentialsUseCase(
+        repository: repository,
+      ),
+      toggleCredentialFavoriteUseCase: ToggleCredentialFavoriteUseCase(
+        repository: repository,
+      ),
+      unmarkCredentialFavoriteUseCase: UnmarkCredentialFavoriteUseCase(
+        repository: repository,
+      ),
     );
   }
 

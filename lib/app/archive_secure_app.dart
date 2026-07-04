@@ -1,6 +1,9 @@
 import 'package:archive_secure/app/app_dependencies.dart';
 import 'package:archive_secure/core/security/biometric_service.dart';
 import 'package:archive_secure/core/security/token_storage.dart';
+import 'package:archive_secure/core/services/app_lock_service.dart';
+import 'package:archive_secure/core/services/biometric_auth_service.dart';
+import 'package:archive_secure/core/services/biometric_preferences_service.dart';
 import 'package:archive_secure/core/theme/theme_mode_controller.dart';
 import 'package:archive_secure/data/auth/bloc/auth_bloc.dart';
 import 'package:archive_secure/data/auth/bloc/auth_state.dart';
@@ -35,6 +38,7 @@ class _ArchiveSecureAppState extends State<ArchiveSecureApp>
   var _navigatingToLock = false;
 
   AppDependencies get _dependencies => widget.dependencies;
+  AppLockService get _appLockService => AppLockService.instance;
 
   @override
   void initState() {
@@ -54,7 +58,18 @@ class _ArchiveSecureAppState extends State<ArchiveSecureApp>
     if (state == AppLifecycleState.paused ||
         state == AppLifecycleState.inactive ||
         state == AppLifecycleState.hidden) {
+      if (_appLockService.isBiometricUnlockInProgress) {
+        _lockOnResume = false;
+        return;
+      }
+      _appLockService.setLocked();
       _markLockRequired();
+      return;
+    }
+
+    if (state == AppLifecycleState.resumed &&
+        _appLockService.shouldBypassLockScreen) {
+      _lockOnResume = false;
       return;
     }
 
@@ -75,15 +90,16 @@ class _ArchiveSecureAppState extends State<ArchiveSecureApp>
   }
 
   Future<void> _showLockScreen() async {
-    if (_navigatingToLock) return;
+    if (_navigatingToLock || _appLockService.shouldBypassLockScreen) return;
     _navigatingToLock = true;
     final isLoggedIn = await _isSessionAvailable();
-    if (!mounted || !isLoggedIn) {
+    if (!mounted || !isLoggedIn || _appLockService.shouldBypassLockScreen) {
       _navigatingToLock = false;
       return;
     }
 
     _lockOnResume = false;
+    _appLockService.setLocked();
     _navigatorKey.currentState?.pushNamedAndRemoveUntil(
       pinEntryPage,
       (route) => false,
@@ -142,6 +158,12 @@ class _AppProviders extends StatelessWidget {
         RepositoryProvider<BiometricService>.value(
           value: dependencies.biometricService,
         ),
+        RepositoryProvider<BiometricAuthService>.value(
+          value: dependencies.biometricAuthService,
+        ),
+        RepositoryProvider<BiometricPreferencesService>.value(
+          value: dependencies.biometricPreferencesService,
+        ),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -150,9 +172,7 @@ class _AppProviders extends StatelessWidget {
           BlocProvider<CredentialBloc>.value(
             value: dependencies.credentialBloc,
           ),
-          BlocProvider<DashboardBloc>.value(
-            value: dependencies.dashboardBloc,
-          ),
+          BlocProvider<DashboardBloc>.value(value: dependencies.dashboardBloc),
           BlocProvider<ProfileBloc>.value(value: dependencies.profileBloc),
           BlocProvider<FavoritesBloc>.value(value: dependencies.favoritesBloc),
           BlocProvider<PasswordGeneratorCubit>.value(

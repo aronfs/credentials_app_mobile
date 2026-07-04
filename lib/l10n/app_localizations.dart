@@ -278,7 +278,7 @@ abstract class AppLocalizations {
   /// No description provided for @useFaceId.
   ///
   /// In en, this message translates to:
-  /// **'Use face recognition'**
+  /// **'Use advanced biometrics'**
   String get useFaceId;
 
   /// No description provided for @signUpTitle.
@@ -737,6 +737,30 @@ abstract class AppLocalizations {
   /// **'Enable fingerprint sign-in'**
   String get biometricEnableReason;
 
+  /// No description provided for @biometricSetupTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Configure biometric access'**
+  String get biometricSetupTitle;
+
+  /// No description provided for @biometricSetupDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Use face recognition or fingerprint to access faster and more securely.'**
+  String get biometricSetupDescription;
+
+  /// No description provided for @biometricSetupActivate.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable biometrics'**
+  String get biometricSetupActivate;
+
+  /// No description provided for @biometricSetupSkip.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip for now'**
+  String get biometricSetupSkip;
+
   /// No description provided for @biometricEnableDialogTitle.
   ///
   /// In en, this message translates to:
@@ -764,8 +788,14 @@ abstract class AppLocalizations {
   /// No description provided for @biometricEnabledSuccess.
   ///
   /// In en, this message translates to:
-  /// **'Fingerprint sign-in enabled successfully.'**
+  /// **'Biometric access enabled successfully.'**
   String get biometricEnabledSuccess;
+
+  /// No description provided for @biometricAccessEnabledSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Biometric access enabled successfully.'**
+  String get biometricAccessEnabledSuccessfully;
 
   /// No description provided for @biometricDisabledSuccess.
   ///
@@ -776,20 +806,38 @@ abstract class AppLocalizations {
   /// No description provided for @biometricUnavailable.
   ///
   /// In en, this message translates to:
-  /// **'This device does not support biometric authentication.'**
+  /// **'Biometric authentication is not available'**
   String get biometricUnavailable;
+
+  /// No description provided for @biometricAuthenticationNotAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Biometric authentication is not available'**
+  String get biometricAuthenticationNotAvailable;
 
   /// No description provided for @biometricNotEnrolled.
   ///
   /// In en, this message translates to:
-  /// **'No fingerprint or Face ID is configured on this device.'**
+  /// **'Please configure face recognition or fingerprint in Android settings'**
   String get biometricNotEnrolled;
+
+  /// No description provided for @biometricConfigureInSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Please configure face recognition or fingerprint in Android settings'**
+  String get biometricConfigureInSettings;
 
   /// No description provided for @biometricEnableFailed.
   ///
   /// In en, this message translates to:
   /// **'Biometric authentication could not be enabled.'**
   String get biometricEnableFailed;
+
+  /// No description provided for @biometricAuthFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Biometric authentication failed'**
+  String get biometricAuthFailed;
 
   /// No description provided for @biometricUnlockTitle.
   ///
@@ -808,6 +856,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Biometrics are not available on this device'**
   String get biometricUnlockSubtitleUnavailable;
+
+  /// No description provided for @faceSetupTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Configure face recognition'**
+  String get faceSetupTitle;
+
+  /// No description provided for @faceSetupDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Use face recognition to unlock Archivero Seguro faster.'**
+  String get faceSetupDescription;
+
+  /// No description provided for @faceSetupActivate.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable face recognition'**
+  String get faceSetupActivate;
+
+  /// No description provided for @faceSetupSkip.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip for now'**
+  String get faceSetupSkip;
+
+  /// No description provided for @faceRecognitionNotAvailableOnDevice.
+  ///
+  /// In en, this message translates to:
+  /// **'Face recognition is not available on this device'**
+  String get faceRecognitionNotAvailableOnDevice;
+
+  /// No description provided for @faceRecognitionConfigureInSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Please configure face recognition in Android settings'**
+  String get faceRecognitionConfigureInSettings;
+
+  /// No description provided for @faceRecognitionNotAvailableOrConfigured.
+  ///
+  /// In en, this message translates to:
+  /// **'Face recognition is not available or not configured'**
+  String get faceRecognitionNotAvailableOrConfigured;
+
+  /// No description provided for @faceAuthenticationFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Face authentication failed'**
+  String get faceAuthenticationFailed;
+
+  /// No description provided for @faceAuthenticationEnabledSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Face authentication enabled successfully'**
+  String get faceAuthenticationEnabledSuccessfully;
 
   /// No description provided for @dashboardTitle.
   ///

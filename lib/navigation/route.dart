@@ -4,6 +4,7 @@ const secondPage = "/secondPage";
 const thirdPage = "/thirdPage";
 const signInPage = "/signInPage";
 const signUpPage = "/signUpPage";
+const biometricSetupPage = "/biometricSetupPage";
 const pinEntryPage = "/pinEntryPage";
 const homePage = "/homePage";
 const categoryFormPage = "/categoryFormPage";

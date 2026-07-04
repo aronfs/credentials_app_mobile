@@ -1,18 +1,28 @@
+import 'dart:async';
+
+import 'package:archive_secure/core/services/advanced_biometric_auth_service.dart';
+import 'package:archive_secure/core/services/app_lock_service.dart';
+import 'package:archive_secure/core/services/face_auth_preferences_service.dart';
 import 'package:archive_secure/data/auth/bloc/auth_bloc.dart';
 import 'package:archive_secure/data/auth/bloc/auth_event.dart';
 import 'package:archive_secure/data/auth/bloc/auth_state.dart';
 import 'package:archive_secure/l10n/app_localizations.dart';
 import 'package:archive_secure/navigation/route.dart';
+import 'package:archive_secure/presentation/auth/pages/face_setup_page.dart';
 import 'package:archive_secure/presentation/screens/widgets/face_id_link.dart';
 import 'package:archive_secure/presentation/screens/widgets/pin_dots_indicator.dart';
 import 'package:archive_secure/presentation/screens/widgets/pin_keypad.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+enum PinEntryPurpose { unlockApp, revealCredentialPassword }
+
 class PinEntryPage extends StatefulWidget {
   final int pinLength;
   final String title;
   final String subtitle;
+  final PinEntryPurpose purpose;
+  final String? credentialId;
   final VoidCallback? onBiometric;
   final VoidCallback? onFaceId;
   final VoidCallback? onVerified;
@@ -22,6 +32,8 @@ class PinEntryPage extends StatefulWidget {
     this.pinLength = 4,
     this.title = '',
     this.subtitle = '',
+    this.purpose = PinEntryPurpose.unlockApp,
+    this.credentialId,
     this.onBiometric,
     this.onFaceId,
     this.onVerified,
@@ -32,7 +44,60 @@ class PinEntryPage extends StatefulWidget {
 }
 
 class _PinEntryPageState extends State<PinEntryPage> {
+  final _advancedBiometricService = AdvancedBiometricAuthService();
+  final _facePreferences = FaceAuthPreferencesService();
+
   String _pin = '';
+  bool _isAuthenticatingBiometric = false;
+  bool _advancedBiometricsAvailable = false;
+  bool _isLoadingBiometricAvailability = true;
+  bool _isShowingFaceSetup = false;
+  bool _hasPromptedFaceSetup = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadAdvancedBiometricState();
+  }
+
+  Future<void> _loadAdvancedBiometricState() async {
+    try {
+      final setupDone = await _facePreferences.isFirstFaceSetupDone();
+      final available = await _advancedBiometricService
+          .canUseAdvancedBiometrics();
+      if (!mounted) return;
+      setState(() {
+        _advancedBiometricsAvailable = available;
+        _isLoadingBiometricAvailability = false;
+      });
+
+      if (!setupDone && !_hasPromptedFaceSetup) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          _showInitialAdvancedBiometricSetup();
+        });
+      }
+    } catch (_) {
+      if (!mounted) return;
+      setState(() {
+        _advancedBiometricsAvailable = false;
+        _isLoadingBiometricAvailability = false;
+      });
+    }
+  }
+
+  Future<void> _showInitialAdvancedBiometricSetup() async {
+    if (!mounted || _isShowingFaceSetup || widget.onVerified != null) return;
+    _isShowingFaceSetup = true;
+    _hasPromptedFaceSetup = true;
+    await Navigator.of(context).push<bool>(
+      MaterialPageRoute(
+        fullscreenDialog: true,
+        builder: (_) => const FaceSetupPage(),
+      ),
+    );
+    _isShowingFaceSetup = false;
+    await _loadAdvancedBiometricState();
+  }
 
   void _onDigit(BuildContext context, String digit) {
     if (_pin.length >= widget.pinLength) return;
@@ -51,28 +116,90 @@ class _PinEntryPageState extends State<PinEntryPage> {
     setState(() => _pin = _pin.substring(0, _pin.length - 1));
   }
 
+  Future<void> _unlockSuccess() async {
+    if (!mounted) return;
+
+    await AppLockService.instance.setUnlocked(true);
+
+    if (!mounted) return;
+
+    switch (widget.purpose) {
+      case PinEntryPurpose.unlockApp:
+        if (widget.onVerified != null) {
+          widget.onVerified!();
+          Navigator.of(context).pop(true);
+          return;
+        }
+        Navigator.of(
+          context,
+        ).pushNamedAndRemoveUntil(homePage, (route) => false);
+        return;
+      case PinEntryPurpose.revealCredentialPassword:
+        widget.onVerified?.call();
+        Navigator.of(context).pop(true);
+        return;
+    }
+  }
+
+  Future<void> _onAdvancedBiometricPressed() async {
+    if (_isAuthenticatingBiometric) return;
+
+    setState(() => _isAuthenticatingBiometric = true);
+    var success = false;
+    AppLockService.instance.beginBiometricUnlock();
+
+    try {
+      final loc = AppLocalizations.of(context)!;
+      success = await _advancedBiometricService.authenticate();
+      if (!mounted) return;
+
+      if (success) {
+        await _unlockSuccess();
+        return;
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(loc.biometricAuthFailed),
+            backgroundColor: Colors.red.shade700,
+          ),
+        );
+      }
+    } catch (_) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(AppLocalizations.of(context)!.biometricAuthFailed),
+          backgroundColor: Colors.red.shade700,
+        ),
+      );
+    } finally {
+      if (AppLockService.instance.isBiometricUnlockInProgress) {
+        AppLockService.instance.finishBiometricUnlock(success: success);
+      }
+      if (mounted && ModalRoute.of(context)?.isCurrent == true) {
+        setState(() => _isAuthenticatingBiometric = false);
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
-    final displayTitle =
-        widget.title.isNotEmpty ? widget.title : loc.pinEntryTitle;
-    final displaySubtitle =
-        widget.subtitle.isNotEmpty ? widget.subtitle : loc.pinEntrySubtitle;
+    final displayTitle = widget.title.isNotEmpty
+        ? widget.title
+        : loc.pinEntryTitle;
+    final displaySubtitle = widget.subtitle.isNotEmpty
+        ? widget.subtitle
+        : loc.pinEntrySubtitle;
+    final shouldShowAdvancedBiometrics =
+        !_isLoadingBiometricAvailability && _advancedBiometricsAvailable;
     return Scaffold(
       backgroundColor: const Color(0xFF141628),
       body: BlocConsumer<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state is PinVerified) {
-            if (widget.onVerified != null) {
-              widget.onVerified!();
-              Navigator.pop(context, true);
-            } else {
-              Navigator.pushNamedAndRemoveUntil(
-                context,
-                homePage,
-                (route) => false,
-              );
-            }
+            unawaited(_unlockSuccess());
+            return;
           }
           if (state is PinVerificationFailed) {
             ScaffoldMessenger.of(context).showSnackBar(
@@ -144,13 +271,16 @@ class _PinEntryPageState extends State<PinEntryPage> {
                 PinKeypad(
                   onDigit: (digit) => _onDigit(context, digit),
                   onDelete: _onDelete,
-                  onBiometric: widget.onBiometric,
+                  showBiometric: false,
                 ),
                 const Spacer(),
-                FaceIdLink(
-                  label: loc.useFaceId,
-                  onTap: widget.onFaceId,
-                ),
+                if (shouldShowAdvancedBiometrics)
+                  FaceIdLink(
+                    label: loc.useFaceId,
+                    onTap: _isAuthenticatingBiometric
+                        ? null
+                        : _onAdvancedBiometricPressed,
+                  ),
                 const SizedBox(height: 32),
               ],
             ),

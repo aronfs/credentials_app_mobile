@@ -1,5 +1,5 @@
-import 'package:archive_secure/core/security/biometric_service.dart';
-import 'package:archive_secure/core/security/token_storage.dart';
+import 'package:archive_secure/core/services/biometric_auth_service.dart';
+import 'package:archive_secure/core/services/biometric_preferences_service.dart';
 import 'package:archive_secure/core/theme/theme_mode_controller.dart';
 import 'package:archive_secure/data/profile/bloc/profile_cubit.dart';
 import 'package:archive_secure/l10n/app_localizations.dart';
@@ -31,17 +31,20 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Future<void> _loadBiometricState() async {
     try {
-      final tokenStorage = context.read<TokenStorage>();
-      final biometricService = context.read<BiometricService>();
-      final enabled = await tokenStorage.getBiometricEnabled();
-      final canUse = await biometricService.canUseBiometrics();
+      final preferences = context.read<BiometricPreferencesService>();
+      final biometricService = context.read<BiometricAuthService>();
+      final enabled = await preferences.isBiometricEnabled();
+      final canUse =
+          await biometricService.isDeviceSupported() &&
+          await biometricService.canCheckBiometrics() &&
+          await biometricService.hasAvailableBiometrics();
       if (!mounted) return;
       setState(() {
         _biometricEnabled = enabled && canUse;
         _canUseBiometrics = canUse;
       });
       if (enabled && !canUse) {
-        await tokenStorage.saveBiometricEnabled(false);
+        await preferences.setBiometricEnabled(false);
       }
     } catch (_) {
       if (!mounted) return;
@@ -54,9 +57,9 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Future<void> _toggleBiometric(bool enabled) async {
     final loc = AppLocalizations.of(context)!;
-    final tokenStorage = context.read<TokenStorage>();
+    final preferences = context.read<BiometricPreferencesService>();
     if (!enabled) {
-      await tokenStorage.saveBiometricEnabled(false);
+      await preferences.setBiometricEnabled(false);
       if (!mounted) return;
       setState(() => _biometricEnabled = false);
       _showSnackBar(loc.biometricDisabledSuccess);
@@ -65,10 +68,13 @@ class _ProfilePageState extends State<ProfilePage> {
 
     setState(() => _biometricUpdating = true);
     try {
-      final biometricService = context.read<BiometricService>();
-      final canUse = await biometricService.canUseBiometrics();
+      final biometricService = context.read<BiometricAuthService>();
+      final canUse =
+          await biometricService.isDeviceSupported() &&
+          await biometricService.canCheckBiometrics() &&
+          await biometricService.hasAvailableBiometrics();
       if (!canUse) {
-        await tokenStorage.saveBiometricEnabled(false);
+        await preferences.setBiometricEnabled(false);
         if (!mounted) return;
         setState(() {
           _biometricEnabled = false;
@@ -79,23 +85,41 @@ class _ProfilePageState extends State<ProfilePage> {
       }
 
       final authenticated = await biometricService.authenticate(
-        reason: loc.biometricEnableReason,
+        localizedReason: loc.biometricEnableReason,
       );
       if (!authenticated) return;
 
-      await tokenStorage.saveBiometricEnabled(true);
+      await preferences.setBiometricEnabled(true);
+      await preferences.setFirstBiometricSetupDone(true);
       if (!mounted) return;
       setState(() {
         _biometricEnabled = true;
         _canUseBiometrics = true;
       });
       _showSnackBar(loc.biometricEnabledSuccess);
-    } on BiometricException catch (e) {
-      if (mounted) _showSnackBar(e.message, isError: true);
+    } on BiometricAuthException catch (e) {
+      if (mounted) _showSnackBar(_biometricErrorMessage(loc, e), isError: true);
     } catch (_) {
       if (mounted) _showSnackBar(loc.biometricEnableFailed, isError: true);
     } finally {
       if (mounted) setState(() => _biometricUpdating = false);
+    }
+  }
+
+  String _biometricErrorMessage(
+    AppLocalizations loc,
+    BiometricAuthException exception,
+  ) {
+    switch (exception.failure) {
+      case BiometricAuthFailure.notAvailable:
+      case BiometricAuthFailure.uiUnavailable:
+        return loc.biometricAuthenticationNotAvailable;
+      case BiometricAuthFailure.notEnrolled:
+        return loc.biometricConfigureInSettings;
+      case BiometricAuthFailure.lockedOut:
+      case BiometricAuthFailure.canceled:
+      case BiometricAuthFailure.unknown:
+        return loc.biometricAuthFailed;
     }
   }
 

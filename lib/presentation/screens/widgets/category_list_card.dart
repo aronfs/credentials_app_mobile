@@ -37,7 +37,6 @@ class CategoryListCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: 118,
         padding: const EdgeInsets.fromLTRB(18, 16, 18, 16),
         decoration: BoxDecoration(
           color: cs.surface,
@@ -69,6 +68,7 @@ class CategoryListCard extends StatelessWidget {
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Container(
                   width: 38,
@@ -83,7 +83,7 @@ class CategoryListCard extends StatelessWidget {
                     color: toneColor,
                   ),
                 ),
-                const Spacer(),
+                const SizedBox(height: 12),
                 Text(
                   data.title,
                   style: tt.titleSmall?.copyWith(
@@ -101,7 +101,7 @@ class CategoryListCard extends StatelessWidget {
                   ),
                   child: Text(
                     data.countText.isNotEmpty
-                        ? '⌘ ${data.countText}'
+                        ? '\u2318 ${data.countText}'
                         : '',
                     style: tt.labelMedium?.copyWith(
                       color: cs.onSurfaceVariant,

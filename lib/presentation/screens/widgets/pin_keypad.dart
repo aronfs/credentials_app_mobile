@@ -12,6 +12,7 @@ class PinKeypad extends StatelessWidget {
   final ValueChanged<String> onDigit;
   final VoidCallback? onDelete;
   final VoidCallback? onBiometric;
+  final bool showBiometric;
   final double keySize;
   final double spacing;
 
@@ -20,6 +21,7 @@ class PinKeypad extends StatelessWidget {
     required this.onDigit,
     this.onDelete,
     this.onBiometric,
+    this.showBiometric = true,
     this.keySize = 72,
     this.spacing = 18,
   });
@@ -60,12 +62,14 @@ class PinKeypad extends StatelessWidget {
           children: [
             Padding(
               padding: EdgeInsets.symmetric(horizontal: spacing / 2),
-              child: PinKey(
-                icon: Icons.fingerprint,
-                size: keySize,
-                foregroundColor: const Color(0xFF8A8FA8),
-                onTap: onBiometric,
-              ),
+              child: showBiometric
+                  ? PinKey(
+                      icon: Icons.fingerprint,
+                      size: keySize,
+                      foregroundColor: const Color(0xFF8A8FA8),
+                      onTap: onBiometric,
+                    )
+                  : SizedBox(width: keySize, height: keySize),
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: spacing / 2),

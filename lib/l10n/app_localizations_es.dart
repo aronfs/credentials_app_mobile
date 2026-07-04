@@ -99,7 +99,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get pinEntrySubtitle => 'Para acceder a Archivero Seguro';
 
   @override
-  String get useFaceId => 'Usar reconocimiento facial';
+  String get useFaceId => 'Usar biometría avanzada';
 
   @override
   String get signUpTitle => 'Crear cuenta';
@@ -330,6 +330,18 @@ class AppLocalizationsEs extends AppLocalizations {
   String get biometricEnableReason => 'Activa el inicio de sesión con huella';
 
   @override
+  String get biometricSetupTitle => 'Configurar acceso biométrico';
+
+  @override
+  String get biometricSetupDescription => 'Usa reconocimiento facial o huella para acceder más rápido y seguro.';
+
+  @override
+  String get biometricSetupActivate => 'Activar biometría';
+
+  @override
+  String get biometricSetupSkip => 'Omitir por ahora';
+
+  @override
   String get biometricEnableDialogTitle => '¿Deseas activar la huella?';
 
   @override
@@ -342,19 +354,31 @@ class AppLocalizationsEs extends AppLocalizations {
   String get biometricEnableDialogActivate => 'Activar';
 
   @override
-  String get biometricEnabledSuccess => 'Inicio con huella activado correctamente.';
+  String get biometricEnabledSuccess => 'Acceso biométrico activado correctamente.';
+
+  @override
+  String get biometricAccessEnabledSuccessfully => 'Acceso biométrico activado correctamente.';
 
   @override
   String get biometricDisabledSuccess => 'Inicio con huella desactivado.';
 
   @override
-  String get biometricUnavailable => 'Este dispositivo no soporta autenticación biométrica.';
+  String get biometricUnavailable => 'La autenticación biométrica no está disponible.';
 
   @override
-  String get biometricNotEnrolled => 'No tienes huellas o Face ID configurados en el dispositivo.';
+  String get biometricAuthenticationNotAvailable => 'La autenticación biométrica no está disponible.';
 
   @override
-  String get biometricEnableFailed => 'No se pudo activar la biometría.';
+  String get biometricNotEnrolled => 'Configura reconocimiento facial o huella en los ajustes de Android.';
+
+  @override
+  String get biometricConfigureInSettings => 'Configura reconocimiento facial o huella en los ajustes de Android.';
+
+  @override
+  String get biometricEnableFailed => 'No se pudo activar la autenticación biométrica.';
+
+  @override
+  String get biometricAuthFailed => 'La autenticación biométrica falló';
 
   @override
   String get biometricUnlockTitle => 'Desbloqueo biométrico';
@@ -364,6 +388,33 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get biometricUnlockSubtitleUnavailable => 'Biometría no disponible en este dispositivo';
+
+  @override
+  String get faceSetupTitle => 'Configurar reconocimiento facial';
+
+  @override
+  String get faceSetupDescription => 'Usa reconocimiento facial para desbloquear Archivero Seguro más rápido.';
+
+  @override
+  String get faceSetupActivate => 'Activar reconocimiento facial';
+
+  @override
+  String get faceSetupSkip => 'Omitir por ahora';
+
+  @override
+  String get faceRecognitionNotAvailableOnDevice => 'El reconocimiento facial no está disponible en este dispositivo';
+
+  @override
+  String get faceRecognitionConfigureInSettings => 'Configura reconocimiento facial en los ajustes de Android';
+
+  @override
+  String get faceRecognitionNotAvailableOrConfigured => 'El reconocimiento facial no está disponible o no está configurado';
+
+  @override
+  String get faceAuthenticationFailed => 'La autenticación facial falló';
+
+  @override
+  String get faceAuthenticationEnabledSuccessfully => 'Autenticación facial activada correctamente';
 
   @override
   String get dashboardTitle => 'Dashboard';

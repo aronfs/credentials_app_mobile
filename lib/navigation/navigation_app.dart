@@ -2,6 +2,7 @@ import 'package:archive_secure/l10n/app_localizations.dart';
 import 'package:archive_secure/navigation/route.dart';
 import 'package:archive_secure/presentation/favorites/favorites_page.dart';
 import 'package:archive_secure/presentation/home/home_screen.dart';
+import 'package:archive_secure/presentation/biometric/pages/biometric_setup_page.dart';
 import 'package:archive_secure/presentation/modals/form_category.dart';
 import 'package:archive_secure/presentation/modals/form_credential.dart';
 import 'package:archive_secure/presentation/profile/profile_page.dart';
@@ -53,6 +54,12 @@ class RouteGenerator {
           settings: settings,
           fullscreenDialog: true,
           builder: (_) => const SignUpPage(),
+        );
+      case biometricSetupPage:
+        return MaterialPageRoute(
+          settings: settings,
+          fullscreenDialog: true,
+          builder: (_) => const BiometricSetupPage(),
         );
       case pinEntryPage:
         return MaterialPageRoute(
@@ -128,15 +135,17 @@ class RouteGenerator {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(Icons.construction_rounded,
-                      size: 64, color: cs.onSurfaceVariant),
+                  Icon(
+                    Icons.construction_rounded,
+                    size: 64,
+                    color: cs.onSurfaceVariant,
+                  ),
                   const SizedBox(height: 16),
                   Text(
                     message,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyLarge
-                        ?.copyWith(color: cs.onSurfaceVariant),
+                    style: Theme.of(
+                      context,
+                    ).textTheme.bodyLarge?.copyWith(color: cs.onSurfaceVariant),
                     textAlign: TextAlign.center,
                   ),
                 ],
