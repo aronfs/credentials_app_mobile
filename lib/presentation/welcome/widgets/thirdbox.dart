@@ -84,7 +84,7 @@ class ThirdBox extends StatelessWidget {
               child: StartButton(
                 label: labelSubtitleButton,
                 color: const Color(0xFF3D3DBF),
-                onPressed: () => _onTapStart(context, signInPage),
+                onPressed: () => _onTapStart(context, pinEntryPage),
               ),
             ),
           ],

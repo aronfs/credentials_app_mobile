@@ -22,10 +22,7 @@ class RouteGenerator {
         return MaterialPageRoute(
           settings: settings,
           fullscreenDialog: true,
-          builder: (ctx) => SplasPage(
-            onComplete: () =>
-                Navigator.pushReplacementNamed(ctx, welcomePage),
-          ),
+          builder: (_) => const SplasPage(),
         );
       case welcomePage:
         return MaterialPageRoute(

@@ -28,59 +28,50 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: BlocConsumer<ProfileBloc, ProfileState>(
-          listener: _onStateChanged,
-          builder: (context, state) {
-            if (state is ProfileLoading) {
-              return const _ProfileSkeleton();
-            }
-            if (state is ProfileFailure && state is! ProfileLoaded) {
-              return _ErrorView(
-                error: state.error,
-                onRetry: () =>
-                    context.read<ProfileBloc>().add(const ProfileRequested()),
-              );
-            }
-            if (state is ProfileLoaded ||
-                state is ProfileUpdating ||
-                state is ProfileActionSuccess) {
-              final profile = state is ProfileLoaded
+    final bloc = context.read<ProfileBloc>();
+
+    return BlocConsumer<ProfileBloc, ProfileState>(
+      listener: _onStateChanged,
+      builder: (context, state) {
+        if (state is ProfileLoading || state is ProfileInitial) {
+          return const _ProfileSkeleton();
+        }
+        if (state is ProfileFailure && state is! ProfileLoaded) {
+          return _ErrorView(
+            error: state.error,
+            onRetry: () => bloc.add(const ProfileRequested()),
+          );
+        }
+        if (state is ProfileLoaded ||
+            state is ProfileUpdating ||
+            state is ProfileActionSuccess) {
+          final profile = state is ProfileLoaded
+              ? state.profile
+              : state is ProfileUpdating
                   ? state.profile
-                  : state is ProfileUpdating
-                      ? state.profile
-                      : state is ProfileActionSuccess
-                          ? state.profile
-                          : null;
-              if (profile == null) {
-                return const _ProfileSkeleton();
-              }
-              final isLoading = state is ProfileUpdating;
-              return _ProfileContent(
-                profile: profile,
-                isLoading: isLoading,
-                onNameSave: (name) => context
-                    .read<ProfileBloc>()
-                    .add(ProfileNameUpdated(name: name)),
-                onPinSave: (currentPin, newPin) => context
-                    .read<ProfileBloc>()
-                    .add(ProfilePinChanged(
-                      currentPin: currentPin,
-                      newPin: newPin,
-                    )),
-                onPasswordSave: (currentPassword, newPassword) => context
-                    .read<ProfileBloc>()
-                    .add(ProfilePasswordChanged(
-                      currentPassword: currentPassword,
-                      newPassword: newPassword,
-                    )),
-              );
-            }
-            return const _ProfileSkeleton();
-          },
-        ),
-      ),
+                  : state is ProfileActionSuccess
+                      ? state.profile!
+                      : null;
+          if (profile == null) return const _ProfileSkeleton();
+          final isLoading = state is ProfileUpdating;
+          return _ProfileContent(
+            profile: profile,
+            isLoading: isLoading,
+            onNameSave: (name) =>
+                bloc.add(ProfileNameUpdated(name: name)),
+            onPinSave: (currentPin, newPin) => bloc.add(
+              ProfilePinChanged(currentPin: currentPin, newPin: newPin),
+            ),
+            onPasswordSave: (currentPassword, newPassword) => bloc.add(
+              ProfilePasswordChanged(
+                currentPassword: currentPassword,
+                newPassword: newPassword,
+              ),
+            ),
+          );
+        }
+        return const _ProfileSkeleton();
+      },
     );
   }
 
@@ -166,6 +157,8 @@ class _ProfileContent extends StatelessWidget {
 }
 
 class _SecuritySettingsTile extends StatelessWidget {
+  const _SecuritySettingsTile();
+
   @override
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
@@ -181,7 +174,7 @@ class _SecuritySettingsTile extends StatelessWidget {
         color: Colors.transparent,
         child: InkWell(
           borderRadius: BorderRadius.circular(16),
-          onTap: () {},
+          onTap: () => Navigator.pushNamed(context, '/securityPage'),
           child: Padding(
             padding: const EdgeInsets.all(16),
             child: Row(

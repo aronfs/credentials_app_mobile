@@ -1,3 +1,4 @@
+import 'package:archive_secure/navigation/route.dart';
 import 'package:archive_secure/presentation/splash/widgets/animated_brand_text.dart';
 import 'package:archive_secure/presentation/splash/widgets/animated_lock_badge.dart';
 import 'package:archive_secure/presentation/splash/widgets/splash_loading_indicator.dart';
@@ -9,15 +10,14 @@ import 'package:flutter/material.dart';
 /// defecto 6 segundos, dentro del rango recomendado 5-7s) que anima
 /// en secuencia: el candado (bounce + fade), el título, el subtítulo,
 /// y finalmente llena la barra de progreso mientras el texto
-/// "INICIANDO..." parpadea. Al finalizar, invoca [onComplete].
+/// "INICIANDO..." parpadea. Al finalizar, verifica si hay sesión
+/// guardada para decidir la siguiente pantalla.
 class SplasPage extends StatefulWidget {
   final Duration duration;
-  final VoidCallback? onComplete;
 
   const SplasPage({
     super.key,
     this.duration = const Duration(seconds: 6),
-    this.onComplete,
   });
 
   @override
@@ -44,9 +44,13 @@ class _SplasPageState extends State<SplasPage>
 
     _timeline.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
-        widget.onComplete?.call();
+        _checkSessionAndNavigate();
       }
     });
+  }
+
+  void _checkSessionAndNavigate() {
+    Navigator.pushReplacementNamed(context, signInPage);
   }
 
   @override
@@ -93,7 +97,7 @@ class _SplasPageState extends State<SplasPage>
                 child: Container(
                   width: double.infinity,
                   decoration: BoxDecoration(
-                    color:  Colors.white,
+                    color: Colors.white,
                     borderRadius: BorderRadius.circular(28),
                   ),
                   child: AnimatedBuilder(

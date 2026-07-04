@@ -83,7 +83,7 @@ class _SignUpPageState extends State<SignUpPage> {
             if (state is AuthSuccess) {
               Navigator.pushNamedAndRemoveUntil(
                 context,
-                pinEntryPage,
+                welcomePage,
                 (route) => false,
               );
             }
