@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 
 class ProfileHeaderCard extends StatelessWidget {
   final ProfileUserEntity user;
+  final Widget? avatarWidget;
 
-  const ProfileHeaderCard({super.key, required this.user});
+  const ProfileHeaderCard({super.key, required this.user, this.avatarWidget});
 
   @override
   Widget build(BuildContext context) {
@@ -29,27 +30,28 @@ class ProfileHeaderCard extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Container(
-            width: 80,
-            height: 80,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              gradient: LinearGradient(
-                colors: [cs.secondary, cs.secondary.withValues(alpha: 0.7)],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-            ),
-            child: Center(
-              child: Text(
-                initials,
-                style: tt.headlineMedium?.copyWith(
-                  color: cs.onSecondary,
-                  fontWeight: FontWeight.w800,
+          avatarWidget ??
+              Container(
+                width: 80,
+                height: 80,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  gradient: LinearGradient(
+                    colors: [cs.secondary, cs.secondary.withValues(alpha: 0.7)],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
+                ),
+                child: Center(
+                  child: Text(
+                    initials,
+                    style: tt.headlineMedium?.copyWith(
+                      color: cs.onSecondary,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
                 ),
               ),
-            ),
-          ),
           const SizedBox(height: 16),
           Text(
             user.name,

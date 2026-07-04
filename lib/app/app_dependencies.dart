@@ -42,6 +42,13 @@ import 'package:archive_secure/domain/usecases/get_profile_usecase.dart';
 import 'package:archive_secure/domain/usecases/toggle_credential_favorite_usecase.dart';
 import 'package:archive_secure/domain/usecases/unmark_credential_favorite_usecase.dart';
 import 'package:archive_secure/domain/usecases/update_profile_name_usecase.dart';
+import 'package:archive_secure/features/profile_image/data/datasources/profile_image_remote_datasource.dart';
+import 'package:archive_secure/features/profile_image/data/repositories/profile_image_repository_impl.dart';
+import 'package:archive_secure/features/profile_image/domain/usecases/delete_profile_image.dart';
+import 'package:archive_secure/features/profile_image/domain/usecases/get_profile_image.dart';
+import 'package:archive_secure/features/profile_image/domain/usecases/get_profile_image_file.dart';
+import 'package:archive_secure/features/profile_image/domain/usecases/upload_profile_image.dart';
+import 'package:archive_secure/features/profile_image/presentation/bloc/profile_image_bloc.dart';
 import 'package:archive_secure/presentation/dashboard/bloc/dashboard_bloc.dart';
 import 'package:archive_secure/presentation/favorites/bloc/favorites_bloc.dart';
 import 'package:archive_secure/presentation/profile/bloc/profile_bloc.dart';
@@ -65,6 +72,7 @@ class AppDependencies {
     required this.profileBloc,
     required this.favoritesBloc,
     required this.passwordGeneratorCubit,
+    required this.profileImageBloc,
   });
 
   final TokenStorage tokenStorage;
@@ -79,6 +87,7 @@ class AppDependencies {
   final ProfileBloc profileBloc;
   final FavoritesBloc favoritesBloc;
   final PasswordGeneratorCubit passwordGeneratorCubit;
+  final ProfileImageBloc profileImageBloc;
 
   factory AppDependencies.create() {
     final dio = Dio(
@@ -119,6 +128,7 @@ class AppDependencies {
     final dashboardBloc = _createDashboardBloc(dio);
     final profileBloc = _createProfileBloc(dio, tokenStorage, authBloc);
     final favoritesBloc = _createFavoritesBloc(dio);
+    final profileImageBloc = _createProfileImageBloc(dio, authBloc);
 
     return AppDependencies._(
       tokenStorage: tokenStorage,
@@ -135,6 +145,7 @@ class AppDependencies {
       passwordGeneratorCubit: PasswordGeneratorCubit(
         PasswordGeneratorService(dio, tokenStorage),
       ),
+      profileImageBloc: profileImageBloc,
     );
   }
 
@@ -195,6 +206,24 @@ class AppDependencies {
     );
   }
 
+  static ProfileImageBloc _createProfileImageBloc(
+    Dio dio,
+    AuthBloc authBloc,
+  ) {
+    final dataSource = ProfileImageRemoteDataSourceImpl(dio);
+    final repository = ProfileImageRepositoryImpl(
+      dataSource: dataSource,
+      onSessionExpired: () =>
+          authBloc.add(const LogoutSubmitted(preserveBiometricLogin: false)),
+    );
+    return ProfileImageBloc(
+      getProfileImage: GetProfileImage(repository),
+      getProfileImageFile: GetProfileImageFile(repository),
+      uploadProfileImage: UploadProfileImage(repository),
+      deleteProfileImage: DeleteProfileImage(repository),
+    );
+  }
+
   static FavoritesBloc _createFavoritesBloc(Dio dio) {
     final dataSource = FavoritesRemoteDataSourceImpl(dio);
     final repository = FavoritesRepositoryImpl(dataSource);
@@ -219,5 +248,6 @@ class AppDependencies {
     profileBloc.close();
     favoritesBloc.close();
     passwordGeneratorCubit.close();
+    profileImageBloc.close();
   }
 }

@@ -232,5 +232,20 @@
     "favoritesToday": "Today",
     "favoritesYesterday": "Yesterday",
     "favoritesStrength": "Strength",
-    "favoritesNoIdentifier": "No identifier"
+    "favoritesNoIdentifier": "No identifier",
+
+    "profileImageNoPhoto": "No profile picture yet.",
+    "profileImageUpdated": "Profile picture updated successfully.",
+    "profileImageDeleted": "Profile picture deleted successfully.",
+    "profileImageTooLarge": "File exceeds maximum size of 5 MB.",
+    "profileImageInvalidFormat": "Invalid format. Use JPG, PNG or WEBP.",
+    "profileImageLoadError": "Could not load profile picture.",
+    "profileImageUploadError": "Error uploading profile picture.",
+    "profileImageDeleteError": "Error deleting profile picture.",
+    "profileImagePickGallery": "Choose from gallery",
+    "profileImagePickCamera": "Take photo",
+    "profileImageDelete": "Delete photo",
+    "profileImageChange": "Change profile picture",
+    "profileImageUploading": "Uploading photo...",
+    "profileImageDeleting": "Deleting photo..."
 }

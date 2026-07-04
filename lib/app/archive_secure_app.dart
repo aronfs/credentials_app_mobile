@@ -10,6 +10,7 @@ import 'package:archive_secure/data/auth/bloc/auth_state.dart';
 import 'package:archive_secure/data/auth/domain/repository/auth_repository.dart';
 import 'package:archive_secure/data/categories/bloc/category_bloc.dart';
 import 'package:archive_secure/data/credentials/bloc/credential_bloc.dart';
+import 'package:archive_secure/features/profile_image/presentation/bloc/profile_image_bloc.dart';
 import 'package:archive_secure/presentation/dashboard/bloc/dashboard_bloc.dart';
 import 'package:archive_secure/presentation/favorites/bloc/favorites_bloc.dart';
 import 'package:archive_secure/presentation/profile/bloc/profile_bloc.dart';
@@ -58,7 +59,8 @@ class _ArchiveSecureAppState extends State<ArchiveSecureApp>
     if (state == AppLifecycleState.paused ||
         state == AppLifecycleState.inactive ||
         state == AppLifecycleState.hidden) {
-      if (_appLockService.isBiometricUnlockInProgress) {
+      if (_appLockService.isBiometricUnlockInProgress ||
+          _appLockService.isImagePickerInProgress) {
         _lockOnResume = false;
         return;
       }
@@ -174,6 +176,9 @@ class _AppProviders extends StatelessWidget {
           ),
           BlocProvider<DashboardBloc>.value(value: dependencies.dashboardBloc),
           BlocProvider<ProfileBloc>.value(value: dependencies.profileBloc),
+          BlocProvider<ProfileImageBloc>.value(
+            value: dependencies.profileImageBloc,
+          ),
           BlocProvider<FavoritesBloc>.value(value: dependencies.favoritesBloc),
           BlocProvider<PasswordGeneratorCubit>.value(
             value: dependencies.passwordGeneratorCubit,

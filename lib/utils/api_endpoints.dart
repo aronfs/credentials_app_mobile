@@ -27,4 +27,7 @@ class ApiEndpoints {
 
   static const String passwordGenerate = '/security/password-generator/generate';
   static const String passwordEvaluate = '/security/password-generator/evaluate';
+
+  static const String profileImage = '/v1/profile-image';
+  static const String profileImageFile = '/v1/profile-image/file';
 }

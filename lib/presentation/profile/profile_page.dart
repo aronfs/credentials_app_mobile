@@ -1,6 +1,11 @@
 import 'package:archive_secure/data/auth/bloc/auth_bloc.dart';
 import 'package:archive_secure/data/auth/bloc/auth_event.dart';
 import 'package:archive_secure/domain/entities/profile_entity.dart';
+import 'package:archive_secure/features/profile_image/presentation/bloc/profile_image_bloc.dart';
+import 'package:archive_secure/features/profile_image/presentation/bloc/profile_image_event.dart';
+import 'package:archive_secure/features/profile_image/presentation/bloc/profile_image_state.dart';
+import 'package:archive_secure/features/profile_image/presentation/widgets/profile_avatar_widget.dart';
+import 'package:archive_secure/l10n/app_localizations.dart';
 import 'package:archive_secure/presentation/profile/bloc/profile_bloc.dart';
 import 'package:archive_secure/presentation/profile/bloc/profile_event.dart';
 import 'package:archive_secure/presentation/profile/bloc/profile_state.dart';
@@ -24,71 +29,103 @@ class _ProfilePageState extends State<ProfilePage> {
   void initState() {
     super.initState();
     context.read<ProfileBloc>().add(const ProfileRequested());
+    context.read<ProfileImageBloc>().add(const ProfileImageStarted());
   }
 
   @override
   Widget build(BuildContext context) {
     final bloc = context.read<ProfileBloc>();
+    final loc = AppLocalizations.of(context)!;
 
-    return BlocConsumer<ProfileBloc, ProfileState>(
-      listener: _onStateChanged,
-      builder: (context, state) {
-        if (state is ProfileLoading || state is ProfileInitial) {
-          return const _ProfileSkeleton();
-        }
-        if (state is ProfileFailure && state is! ProfileLoaded) {
-          return _ErrorView(
-            error: state.error,
-            onRetry: () => bloc.add(const ProfileRequested()),
-          );
-        }
-        if (state is ProfileLoaded ||
-            state is ProfileUpdating ||
-            state is ProfileActionSuccess) {
-          final profile = state is ProfileLoaded
-              ? state.profile
-              : state is ProfileUpdating
-                  ? state.profile
-                  : state is ProfileActionSuccess
-                      ? state.profile!
-                      : null;
-          if (profile == null) return const _ProfileSkeleton();
-          final isLoading = state is ProfileUpdating;
-          return _ProfileContent(
-            profile: profile,
-            isLoading: isLoading,
-            onNameSave: (name) =>
-                bloc.add(ProfileNameUpdated(name: name)),
-            onPinSave: (currentPin, newPin) => bloc.add(
-              ProfilePinChanged(currentPin: currentPin, newPin: newPin),
-            ),
-            onPasswordSave: (currentPassword, newPassword) => bloc.add(
-              ProfilePasswordChanged(
-                currentPassword: currentPassword,
-                newPassword: newPassword,
-              ),
-            ),
-          );
-        }
-        return const _ProfileSkeleton();
-      },
-    );
-  }
-
-  void _onStateChanged(BuildContext context, ProfileState state) {
-    if (state is ProfileActionSuccess) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(state.message)),
-      );
-    }
-    if (state is ProfileFailure) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(state.error),
-          backgroundColor: Theme.of(context).colorScheme.error,
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<ProfileImageBloc, ProfileImageState>(
+          listener: (context, state) {
+            if (state is ProfileImageUploadSuccess) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text(loc.profileImageUpdated)),
+              );
+            }
+            if (state is ProfileImageDeleteSuccess) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text(loc.profileImageDeleted)),
+              );
+            }
+            if (state is ProfileImageFailure) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(state.message),
+                  backgroundColor: Theme.of(context).colorScheme.error,
+                ),
+              );
+            }
+          },
         ),
-      );
-    }
+        BlocListener<ProfileBloc, ProfileState>(
+          listener: (context, state) {
+            if (state is ProfileActionSuccess) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text(state.message)),
+              );
+            }
+            if (state is ProfileFailure) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(state.error),
+                  backgroundColor: Theme.of(context).colorScheme.error,
+                ),
+              );
+            }
+          },
+        ),
+      ],
+      child: BlocBuilder<ProfileBloc, ProfileState>(
+        builder: (context, state) {
+          Widget body;
+          if (state is ProfileLoading || state is ProfileInitial) {
+            body = const _ProfileSkeleton();
+          } else if (state is ProfileFailure && state is! ProfileLoaded) {
+            body = _ErrorView(
+              error: state.error,
+              onRetry: () => bloc.add(const ProfileRequested()),
+            );
+          } else if (state is ProfileLoaded ||
+              state is ProfileUpdating ||
+              state is ProfileActionSuccess) {
+            final profile = state is ProfileLoaded
+                ? state.profile
+                : state is ProfileUpdating
+                    ? state.profile
+                    : state is ProfileActionSuccess
+                        ? state.profile!
+                        : null;
+            if (profile == null) {
+              body = const _ProfileSkeleton();
+            } else {
+              final isLoading = state is ProfileUpdating;
+              body = _ProfileContent(
+                profile: profile,
+                isLoading: isLoading,
+                onNameSave: (name) =>
+                    bloc.add(ProfileNameUpdated(name: name)),
+                onPinSave: (currentPin, newPin) => bloc.add(
+                  ProfilePinChanged(currentPin: currentPin, newPin: newPin),
+                ),
+                onPasswordSave: (currentPassword, newPassword) => bloc.add(
+                  ProfilePasswordChanged(
+                    currentPassword: currentPassword,
+                    newPassword: newPassword,
+                  ),
+                ),
+              );
+            }
+          } else {
+            body = const _ProfileSkeleton();
+          }
+          return SafeArea(child: body);
+        },
+      ),
+    );
   }
 }
 
@@ -111,12 +148,38 @@ class _ProfileContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
+    final initials = profile.user.name.isNotEmpty
+        ? profile.user.name
+            .split(' ')
+            .map((e) => e.isNotEmpty ? e[0] : '')
+            .take(2)
+            .join()
+            .toUpperCase()
+        : '?';
 
     return SingleChildScrollView(
       padding: const EdgeInsets.fromLTRB(20, 22, 20, 28),
       child: Column(
         children: [
-          ProfileHeaderCard(user: profile.user),
+          BlocBuilder<ProfileImageBloc, ProfileImageState>(
+            builder: (context, imgState) {
+              final loaded = imgState is ProfileImageLoaded ? imgState : null;
+              final hasImage = loaded?.bytes != null;
+              final isUploading = imgState is ProfileImageUploading;
+              final isDeleting = imgState is ProfileImageDeleting;
+
+              return ProfileHeaderCard(
+                user: profile.user,
+                avatarWidget: ProfileAvatarWidget(
+                  imageBytes: loaded?.bytes,
+                  hasImage: hasImage,
+                  isLoading: isUploading,
+                  isDeleting: isDeleting,
+                  initials: initials,
+                ),
+              );
+            },
+          ),
           const SizedBox(height: 16),
           ProfileStatsCard(stats: profile.stats),
           const SizedBox(height: 20),

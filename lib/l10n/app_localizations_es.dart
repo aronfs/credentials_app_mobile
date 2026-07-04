@@ -685,4 +685,46 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get favoritesNoIdentifier => 'Sin identificador';
+
+  @override
+  String get profileImageNoPhoto => 'No tienes foto de perfil todavía.';
+
+  @override
+  String get profileImageUpdated => 'Foto de perfil actualizada correctamente.';
+
+  @override
+  String get profileImageDeleted => 'Foto de perfil eliminada correctamente.';
+
+  @override
+  String get profileImageTooLarge => 'El archivo supera el tamaño máximo de 5 MB.';
+
+  @override
+  String get profileImageInvalidFormat => 'Formato no permitido. Usa JPG, PNG o WEBP.';
+
+  @override
+  String get profileImageLoadError => 'No se pudo cargar la foto de perfil.';
+
+  @override
+  String get profileImageUploadError => 'Error al subir la foto de perfil.';
+
+  @override
+  String get profileImageDeleteError => 'Error al eliminar la foto de perfil.';
+
+  @override
+  String get profileImagePickGallery => 'Elegir de la galería';
+
+  @override
+  String get profileImagePickCamera => 'Tomar foto';
+
+  @override
+  String get profileImageDelete => 'Eliminar foto';
+
+  @override
+  String get profileImageChange => 'Cambiar foto de perfil';
+
+  @override
+  String get profileImageUploading => 'Subiendo foto...';
+
+  @override
+  String get profileImageDeleting => 'Eliminando foto...';
 }

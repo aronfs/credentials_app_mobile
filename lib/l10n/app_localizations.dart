@@ -1450,6 +1450,90 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No identifier'**
   String get favoritesNoIdentifier;
+
+  /// No description provided for @profileImageNoPhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'No profile picture yet.'**
+  String get profileImageNoPhoto;
+
+  /// No description provided for @profileImageUpdated.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile picture updated successfully.'**
+  String get profileImageUpdated;
+
+  /// No description provided for @profileImageDeleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile picture deleted successfully.'**
+  String get profileImageDeleted;
+
+  /// No description provided for @profileImageTooLarge.
+  ///
+  /// In en, this message translates to:
+  /// **'File exceeds maximum size of 5 MB.'**
+  String get profileImageTooLarge;
+
+  /// No description provided for @profileImageInvalidFormat.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid format. Use JPG, PNG or WEBP.'**
+  String get profileImageInvalidFormat;
+
+  /// No description provided for @profileImageLoadError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load profile picture.'**
+  String get profileImageLoadError;
+
+  /// No description provided for @profileImageUploadError.
+  ///
+  /// In en, this message translates to:
+  /// **'Error uploading profile picture.'**
+  String get profileImageUploadError;
+
+  /// No description provided for @profileImageDeleteError.
+  ///
+  /// In en, this message translates to:
+  /// **'Error deleting profile picture.'**
+  String get profileImageDeleteError;
+
+  /// No description provided for @profileImagePickGallery.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose from gallery'**
+  String get profileImagePickGallery;
+
+  /// No description provided for @profileImagePickCamera.
+  ///
+  /// In en, this message translates to:
+  /// **'Take photo'**
+  String get profileImagePickCamera;
+
+  /// No description provided for @profileImageDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete photo'**
+  String get profileImageDelete;
+
+  /// No description provided for @profileImageChange.
+  ///
+  /// In en, this message translates to:
+  /// **'Change profile picture'**
+  String get profileImageChange;
+
+  /// No description provided for @profileImageUploading.
+  ///
+  /// In en, this message translates to:
+  /// **'Uploading photo...'**
+  String get profileImageUploading;
+
+  /// No description provided for @profileImageDeleting.
+  ///
+  /// In en, this message translates to:
+  /// **'Deleting photo...'**
+  String get profileImageDeleting;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

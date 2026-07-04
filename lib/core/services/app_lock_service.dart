@@ -5,12 +5,14 @@ class AppLockService {
 
   bool _isUnlocked = false;
   bool _isBiometricUnlockInProgress = false;
+  bool _isImagePickerInProgress = false;
 
   bool get isUnlocked => _isUnlocked;
   bool get isBiometricUnlockInProgress => _isBiometricUnlockInProgress;
+  bool get isImagePickerInProgress => _isImagePickerInProgress;
 
   bool get shouldBypassLockScreen =>
-      _isUnlocked || _isBiometricUnlockInProgress;
+      _isUnlocked || _isBiometricUnlockInProgress || _isImagePickerInProgress;
 
   void beginBiometricUnlock() {
     _isBiometricUnlockInProgress = true;
@@ -21,6 +23,14 @@ class AppLockService {
     if (success) {
       _isUnlocked = true;
     }
+  }
+
+  void beginImagePicker() {
+    _isImagePickerInProgress = true;
+  }
+
+  void finishImagePicker() {
+    _isImagePickerInProgress = false;
   }
 
   Future<void> setUnlocked(bool value) async {
