@@ -327,6 +327,13 @@
     "credentialsFilterFavorites": "Favoritos",
     "passwordStrengthVeryStrong": "MUY FUERTE",
 
+    "securitySettings": "Ajustes de Seguridad",
+    "changePin": "Cambiar PIN",
+    "biometrics": "Biometría",
+    "autoLock": "Bloqueo automático",
+    "activeSessions": "Sesiones activas",
+    "deactivateAccount": "Desactivar cuenta",
+
     "retry": "Reintentar",
     "cancel": "Cancelar",
     "save": "Guardar",

@@ -966,6 +966,24 @@ class AppLocalizationsEn extends AppLocalizations {
   String get passwordStrengthVeryStrong => 'VERY STRONG';
 
   @override
+  String get securitySettings => 'Security Settings';
+
+  @override
+  String get changePin => 'Change PIN';
+
+  @override
+  String get biometrics => 'Biometrics';
+
+  @override
+  String get autoLock => 'Auto Lock';
+
+  @override
+  String get activeSessions => 'Active Sessions';
+
+  @override
+  String get deactivateAccount => 'Deactivate Account';
+
+  @override
   String get retry => 'Retry';
 
   @override
