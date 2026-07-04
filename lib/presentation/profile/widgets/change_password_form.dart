@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:archive_secure/l10n/app_localizations.dart';
 
 class ChangePasswordForm extends StatefulWidget {
   final void Function(String currentPassword, String newPassword) onSave;
@@ -34,6 +35,7 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
     final cs = Theme.of(context).colorScheme;
     final tt = Theme.of(context).textTheme;
 
@@ -60,14 +62,14 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Cambiar contraseña',
+                          loc.profileChangePassword,
                           style: tt.bodyLarge?.copyWith(
                             fontWeight: FontWeight.w700,
                             color: cs.onSurface,
                           ),
                         ),
                         Text(
-                          'Al cambiar tu contraseña se cerrarán todas tus sesiones',
+                          loc.profilePasswordChangeWarning,
                           style: tt.bodySmall?.copyWith(
                             color: cs.error,
                           ),
@@ -96,7 +98,7 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
                       controller: _currentCtrl,
                       obscureText: !_showCurrent,
                       decoration: InputDecoration(
-                        labelText: 'Contraseña actual',
+                        labelText: loc.profileCurrentPassword,
                         suffixIcon: IconButton(
                           icon: Icon(
                             _showCurrent
@@ -109,7 +111,7 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'La contraseña actual es requerida';
+                          return loc.profileCurrentPasswordRequired;
                         }
                         return null;
                       },
@@ -119,7 +121,7 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
                       controller: _newCtrl,
                       obscureText: !_showNew,
                       decoration: InputDecoration(
-                        labelText: 'Nueva contraseña',
+                        labelText: loc.profileNewPassword,
                         suffixIcon: IconButton(
                           icon: Icon(
                             _showNew ? Icons.visibility_off : Icons.visibility,
@@ -130,13 +132,13 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'La nueva contraseña es requerida';
+                          return loc.profileNewPasswordRequired;
                         }
                         if (value.length < 8) {
-                          return 'Mínimo 8 caracteres';
+                          return loc.profileNewPasswordMinLength;
                         }
                         if (value == _currentCtrl.text) {
-                          return 'La nueva contraseña debe ser diferente a la actual';
+                          return loc.profileNewPasswordDifferent;
                         }
                         return null;
                       },
@@ -146,7 +148,7 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
                       controller: _confirmCtrl,
                       obscureText: !_showConfirm,
                       decoration: InputDecoration(
-                        labelText: 'Confirmar nueva contraseña',
+                        labelText: loc.profileConfirmPassword,
                         suffixIcon: IconButton(
                           icon: Icon(
                             _showConfirm
@@ -159,10 +161,10 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Debe confirmar la nueva contraseña';
+                          return loc.profileConfirmPasswordRequired;
                         }
                         if (value != _newCtrl.text) {
-                          return 'Las contraseñas no coinciden';
+                          return loc.profilePasswordsDoNotMatch;
                         }
                         return null;
                       },
@@ -181,7 +183,7 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
                           const SizedBox(width: 8),
                           Expanded(
                             child: Text(
-                              'Al cambiar tu contraseña se cerrarán todas tus sesiones.',
+                              loc.profilePasswordChangeWarning,
                               style: tt.bodySmall?.copyWith(color: cs.error),
                             ),
                           ),
@@ -214,7 +216,7 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
                                   color: Colors.white,
                                 ),
                               )
-                            : const Text('Cambiar contraseña'),
+                            : Text(loc.profileChangePassword),
                       ),
                     ),
                   ],

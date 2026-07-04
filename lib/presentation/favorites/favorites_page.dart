@@ -1,3 +1,4 @@
+import 'package:archive_secure/l10n/app_localizations.dart';
 import 'package:archive_secure/presentation/favorites/bloc/favorites_bloc.dart';
 import 'package:archive_secure/presentation/favorites/bloc/favorites_event.dart';
 import 'package:archive_secure/presentation/favorites/bloc/favorites_state.dart';
@@ -42,6 +43,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
     final tt = Theme.of(context).textTheme;
+    final loc = AppLocalizations.of(context)!;
 
     return Scaffold(
       backgroundColor: cs.surface,
@@ -55,7 +57,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Favoritos',
+                    loc.favoritesTitle,
                     style: tt.titleLarge?.copyWith(
                       fontWeight: FontWeight.w900,
                       color: cs.onSurface,
@@ -63,7 +65,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    'Tus credenciales más importantes',
+                    loc.favoritesSubtitle,
                     style: tt.bodySmall?.copyWith(
                       color: cs.onSurfaceVariant,
                     ),
@@ -215,6 +217,7 @@ class _ErrorView extends StatelessWidget {
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
     final tt = Theme.of(context).textTheme;
+    final loc = AppLocalizations.of(context)!;
 
     return Center(
       child: Padding(
@@ -233,7 +236,7 @@ class _ErrorView extends StatelessWidget {
             FilledButton.icon(
               onPressed: onRetry,
               icon: const Icon(Icons.refresh),
-              label: const Text('Reintentar'),
+              label: Text(loc.favoritesRetry),
             ),
           ],
         ),

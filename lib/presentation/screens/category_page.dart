@@ -1,6 +1,7 @@
 import 'package:archive_secure/data/categories/bloc/category_bloc.dart';
 import 'package:archive_secure/data/categories/bloc/category_event.dart';
 import 'package:archive_secure/data/categories/bloc/category_state.dart';
+import 'package:archive_secure/l10n/app_localizations.dart';
 import 'package:archive_secure/navigation/route.dart';
 import 'package:archive_secure/presentation/screens/widgets/categories_header.dart';
 import 'package:archive_secure/presentation/screens/widgets/category_list.dart';
@@ -32,6 +33,7 @@ class _CategoryPageState extends State<CategoryPage> {
   @override
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
+    final loc = AppLocalizations.of(context)!;
 
     return Scaffold(
       backgroundColor: cs.surface,
@@ -59,9 +61,9 @@ class _CategoryPageState extends State<CategoryPage> {
                             Text(state.error,
                                 style: TextStyle(color: cs.error)),
                             const SizedBox(height: 8),
-                            TextButton(
+                                TextButton(
                               onPressed: _onRefresh,
-                              child: const Text('Reintentar'),
+                              child: Text(loc.retry),
                             ),
                           ],
                         ),

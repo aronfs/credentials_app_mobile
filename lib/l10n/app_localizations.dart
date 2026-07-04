@@ -62,7 +62,8 @@ import 'app_localizations_es.dart';
 /// be consistent with the languages listed in the AppLocalizations.supportedLocales
 /// property.
 abstract class AppLocalizations {
-  AppLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+  AppLocalizations(String locale)
+    : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -70,7 +71,8 @@ abstract class AppLocalizations {
     return Localizations.of<AppLocalizations>(context, AppLocalizations);
   }
 
-  static const LocalizationsDelegate<AppLocalizations> delegate = _AppLocalizationsDelegate();
+  static const LocalizationsDelegate<AppLocalizations> delegate =
+      _AppLocalizationsDelegate();
 
   /// A list of this localizations delegate along with the default localizations
   /// delegates.
@@ -82,17 +84,18 @@ abstract class AppLocalizations {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
-    delegate,
-    GlobalMaterialLocalizations.delegate,
-    GlobalCupertinoLocalizations.delegate,
-    GlobalWidgetsLocalizations.delegate,
-  ];
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
+      <LocalizationsDelegate<dynamic>>[
+        delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ];
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
     Locale('en'),
-    Locale('es')
+    Locale('es'),
   ];
 
   /// No description provided for @appName.
@@ -1022,7 +1025,7 @@ abstract class AppLocalizations {
   /// No description provided for @dashboardTopCategories.
   ///
   /// In en, this message translates to:
-  /// **'Top categories'**
+  /// **'Top Categories'**
   String get dashboardTopCategories;
 
   /// No description provided for @dashboardNoCategories.
@@ -1040,7 +1043,7 @@ abstract class AppLocalizations {
   /// No description provided for @dashboardSecurityAlerts.
   ///
   /// In en, this message translates to:
-  /// **'Security alerts'**
+  /// **'Security Alerts'**
   String get dashboardSecurityAlerts;
 
   /// No description provided for @dashboardNoAlerts.
@@ -1570,9 +1573,400 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Appearance'**
   String get appearanceSection;
+
+  /// No description provided for @passwordGeneratorTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Password Generator'**
+  String get passwordGeneratorTitle;
+
+  /// No description provided for @passwordGeneratorSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Create strong, unique passwords.'**
+  String get passwordGeneratorSubtitle;
+
+  /// No description provided for @passwordGeneratorGenerating.
+  ///
+  /// In en, this message translates to:
+  /// **'Generating...'**
+  String get passwordGeneratorGenerating;
+
+  /// No description provided for @passwordGeneratorVeryStrong.
+  ///
+  /// In en, this message translates to:
+  /// **'Very Strong'**
+  String get passwordGeneratorVeryStrong;
+
+  /// No description provided for @passwordGeneratorStrong.
+  ///
+  /// In en, this message translates to:
+  /// **'Strong'**
+  String get passwordGeneratorStrong;
+
+  /// No description provided for @passwordGeneratorMedium.
+  ///
+  /// In en, this message translates to:
+  /// **'Medium'**
+  String get passwordGeneratorMedium;
+
+  /// No description provided for @passwordGeneratorLength.
+  ///
+  /// In en, this message translates to:
+  /// **'Length'**
+  String get passwordGeneratorLength;
+
+  /// No description provided for @passwordGeneratorUppercase.
+  ///
+  /// In en, this message translates to:
+  /// **'Uppercase (A-Z)'**
+  String get passwordGeneratorUppercase;
+
+  /// No description provided for @passwordGeneratorLowercase.
+  ///
+  /// In en, this message translates to:
+  /// **'Lowercase (a-z)'**
+  String get passwordGeneratorLowercase;
+
+  /// No description provided for @passwordGeneratorNumbers.
+  ///
+  /// In en, this message translates to:
+  /// **'Numbers (0-9)'**
+  String get passwordGeneratorNumbers;
+
+  /// No description provided for @passwordGeneratorSymbols.
+  ///
+  /// In en, this message translates to:
+  /// **'Symbols (!@#\$%)'**
+  String get passwordGeneratorSymbols;
+
+  /// No description provided for @passwordGeneratorAvoidSimilar.
+  ///
+  /// In en, this message translates to:
+  /// **'Avoid similar characters'**
+  String get passwordGeneratorAvoidSimilar;
+
+  /// No description provided for @passwordGeneratorGenerate.
+  ///
+  /// In en, this message translates to:
+  /// **'Generate new password'**
+  String get passwordGeneratorGenerate;
+
+  /// No description provided for @passwordGeneratorCopied.
+  ///
+  /// In en, this message translates to:
+  /// **'Password copied to clipboard'**
+  String get passwordGeneratorCopied;
+
+  /// No description provided for @passwordGeneratorCopy.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy password'**
+  String get passwordGeneratorCopy;
+
+  /// No description provided for @passwordGeneratorScoreOutOf.
+  ///
+  /// In en, this message translates to:
+  /// **'/100'**
+  String get passwordGeneratorScoreOutOf;
+
+  /// No description provided for @dashboardGeneratePassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Generate password'**
+  String get dashboardGeneratePassword;
+
+  /// No description provided for @dashboardMyProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'My Profile'**
+  String get dashboardMyProfile;
+
+  /// No description provided for @dashboardSecurity.
+  ///
+  /// In en, this message translates to:
+  /// **'Security'**
+  String get dashboardSecurity;
+
+  /// No description provided for @dashboardWelcome.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome,'**
+  String get dashboardWelcome;
+
+  /// No description provided for @dashboardHelloUser.
+  ///
+  /// In en, this message translates to:
+  /// **'Hello, User'**
+  String get dashboardHelloUser;
+
+  /// No description provided for @dashboardViewAll.
+  ///
+  /// In en, this message translates to:
+  /// **'View all'**
+  String get dashboardViewAll;
+
+  /// No description provided for @dashboardRecentAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'Recently Added'**
+  String get dashboardRecentAdded;
+
+  /// No description provided for @dashboardNoCredentialsMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'You don\'t have any credentials yet. Create your first secure credential.'**
+  String get dashboardNoCredentialsMessage;
+
+  /// No description provided for @homeWebs.
+  ///
+  /// In en, this message translates to:
+  /// **'Webs'**
+  String get homeWebs;
+
+  /// No description provided for @homeBanks.
+  ///
+  /// In en, this message translates to:
+  /// **'Banks'**
+  String get homeBanks;
+
+  /// No description provided for @homeWork.
+  ///
+  /// In en, this message translates to:
+  /// **'Work'**
+  String get homeWork;
+
+  /// No description provided for @homeCategories.
+  ///
+  /// In en, this message translates to:
+  /// **'Categories'**
+  String get homeCategories;
+
+  /// No description provided for @splashTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Archivero\nSeguro'**
+  String get splashTitle;
+
+  /// No description provided for @splashSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your credentials protected'**
+  String get splashSubtitle;
+
+  /// No description provided for @splashLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'STARTING'**
+  String get splashLoading;
+
+  /// No description provided for @biometricAuthFailedMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Biometric authentication could not be completed.'**
+  String get biometricAuthFailedMessage;
+
+  /// No description provided for @biometricDeviceNotSupported.
+  ///
+  /// In en, this message translates to:
+  /// **'This device does not support biometric authentication.'**
+  String get biometricDeviceNotSupported;
+
+  /// No description provided for @biometricNotEnrolledMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'You have no fingerprints or Face ID configured on this device.'**
+  String get biometricNotEnrolledMessage;
+
+  /// No description provided for @biometricTooManyAttempts.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many failed attempts. Try again later.'**
+  String get biometricTooManyAttempts;
+
+  /// No description provided for @biometricBlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Biometrics is blocked. Unlock it from device settings.'**
+  String get biometricBlocked;
+
+  /// No description provided for @biometricCancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Authentication cancelled.'**
+  String get biometricCancelled;
+
+  /// No description provided for @biometricOperationFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Operation could not be completed.'**
+  String get biometricOperationFailed;
+
+  /// No description provided for @formCategoryColorBlue.
+  ///
+  /// In en, this message translates to:
+  /// **'Blue'**
+  String get formCategoryColorBlue;
+
+  /// No description provided for @formCategoryColorRed.
+  ///
+  /// In en, this message translates to:
+  /// **'Red'**
+  String get formCategoryColorRed;
+
+  /// No description provided for @formCategoryColorGreen.
+  ///
+  /// In en, this message translates to:
+  /// **'Green'**
+  String get formCategoryColorGreen;
+
+  /// No description provided for @formCategoryColorYellow.
+  ///
+  /// In en, this message translates to:
+  /// **'Yellow'**
+  String get formCategoryColorYellow;
+
+  /// No description provided for @formCategoryColorPurple.
+  ///
+  /// In en, this message translates to:
+  /// **'Purple'**
+  String get formCategoryColorPurple;
+
+  /// No description provided for @formCategoryColorPink.
+  ///
+  /// In en, this message translates to:
+  /// **'Pink'**
+  String get formCategoryColorPink;
+
+  /// No description provided for @formCategoryColorOrange.
+  ///
+  /// In en, this message translates to:
+  /// **'Orange'**
+  String get formCategoryColorOrange;
+
+  /// No description provided for @formCategoryColorGray.
+  ///
+  /// In en, this message translates to:
+  /// **'Gray'**
+  String get formCategoryColorGray;
+
+  /// No description provided for @formCategoryIconGlobe.
+  ///
+  /// In en, this message translates to:
+  /// **'Globe'**
+  String get formCategoryIconGlobe;
+
+  /// No description provided for @formCategoryIconPerson.
+  ///
+  /// In en, this message translates to:
+  /// **'Person'**
+  String get formCategoryIconPerson;
+
+  /// No description provided for @formCategoryIconWork.
+  ///
+  /// In en, this message translates to:
+  /// **'Work'**
+  String get formCategoryIconWork;
+
+  /// No description provided for @formCategoryIconBank.
+  ///
+  /// In en, this message translates to:
+  /// **'Bank'**
+  String get formCategoryIconBank;
+
+  /// No description provided for @formCategoryIconEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get formCategoryIconEmail;
+
+  /// No description provided for @formCategoryIconPhone.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone'**
+  String get formCategoryIconPhone;
+
+  /// No description provided for @formCategoryIconWifi.
+  ///
+  /// In en, this message translates to:
+  /// **'WiFi'**
+  String get formCategoryIconWifi;
+
+  /// No description provided for @formCategoryIconStudy.
+  ///
+  /// In en, this message translates to:
+  /// **'Study'**
+  String get formCategoryIconStudy;
+
+  /// No description provided for @formCategoryIconShield.
+  ///
+  /// In en, this message translates to:
+  /// **'Shield'**
+  String get formCategoryIconShield;
+
+  /// No description provided for @formCategoryIconCloud.
+  ///
+  /// In en, this message translates to:
+  /// **'Cloud'**
+  String get formCategoryIconCloud;
+
+  /// No description provided for @formCategoryIconStar.
+  ///
+  /// In en, this message translates to:
+  /// **'Star'**
+  String get formCategoryIconStar;
+
+  /// No description provided for @formCategoryIconHeart.
+  ///
+  /// In en, this message translates to:
+  /// **'Heart'**
+  String get formCategoryIconHeart;
+
+  /// No description provided for @credentialsFilterCategories.
+  ///
+  /// In en, this message translates to:
+  /// **'Categories'**
+  String get credentialsFilterCategories;
+
+  /// No description provided for @credentialsFilterFavorites.
+  ///
+  /// In en, this message translates to:
+  /// **'Favorites'**
+  String get credentialsFilterFavorites;
+
+  /// No description provided for @passwordStrengthVeryStrong.
+  ///
+  /// In en, this message translates to:
+  /// **'VERY STRONG'**
+  String get passwordStrengthVeryStrong;
+
+  /// No description provided for @retry.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get retry;
+
+  /// No description provided for @cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// No description provided for @save.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get save;
+
+  /// No description provided for @change.
+  ///
+  /// In en, this message translates to:
+  /// **'Change'**
+  String get change;
 }
 
-class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
+class _AppLocalizationsDelegate
+    extends LocalizationsDelegate<AppLocalizations> {
   const _AppLocalizationsDelegate();
 
   @override
@@ -1581,25 +1975,26 @@ class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> 
   }
 
   @override
-  bool isSupported(Locale locale) => <String>['en', 'es'].contains(locale.languageCode);
+  bool isSupported(Locale locale) =>
+      <String>['en', 'es'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
 }
 
 AppLocalizations lookupAppLocalizations(Locale locale) {
-
-
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'en': return AppLocalizationsEn();
-    case 'es': return AppLocalizationsEs();
+    case 'en':
+      return AppLocalizationsEn();
+    case 'es':
+      return AppLocalizationsEs();
   }
 
   throw FlutterError(
     'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
     'an issue with the localizations generation tool. Please file an issue '
     'on GitHub with a reproducible sample app and the gen-l10n configuration '
-    'that was used.'
+    'that was used.',
   );
 }

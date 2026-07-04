@@ -1,4 +1,5 @@
 import 'package:archive_secure/data/categories/domain/entity/category.dart';
+import 'package:archive_secure/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 import 'category_list_card.dart';
@@ -24,6 +25,7 @@ class CategoryList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
     if (categories.isEmpty) {
       return Center(
         child: Column(
@@ -33,7 +35,7 @@ class CategoryList extends StatelessWidget {
                 size: 48, color: Theme.of(context).colorScheme.onSurfaceVariant),
             const SizedBox(height: 12),
             Text(
-              'No hay categorías aún',
+              loc.categoriesEmpty,
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     color: Theme.of(context).colorScheme.onSurfaceVariant,
                   ),

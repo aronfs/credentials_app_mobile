@@ -19,30 +19,30 @@ class _FormCategoryState extends State<FormCategory> {
   late String _selectedColor;
   late String _selectedIcon;
 
-  static const List<ColorOption> _colorOptions = [
-    ColorOption(label: 'Azul', value: '#3b82f6'),
-    ColorOption(label: 'Rojo', value: '#ef4444'),
-    ColorOption(label: 'Verde', value: '#22c55e'),
-    ColorOption(label: 'Amarillo', value: '#eab308'),
-    ColorOption(label: 'Purpura', value: '#a855f7'),
-    ColorOption(label: 'Rosa', value: '#ec4899'),
-    ColorOption(label: 'Naranja', value: '#f97316'),
-    ColorOption(label: 'Gris', value: '#6b7280'),
+  static List<ColorOption> _colorOptions(AppLocalizations loc) => [
+    ColorOption(label: loc.formCategoryColorBlue, value: '#3b82f6'),
+    ColorOption(label: loc.formCategoryColorRed, value: '#ef4444'),
+    ColorOption(label: loc.formCategoryColorGreen, value: '#22c55e'),
+    ColorOption(label: loc.formCategoryColorYellow, value: '#eab308'),
+    ColorOption(label: loc.formCategoryColorPurple, value: '#a855f7'),
+    ColorOption(label: loc.formCategoryColorPink, value: '#ec4899'),
+    ColorOption(label: loc.formCategoryColorOrange, value: '#f97316'),
+    ColorOption(label: loc.formCategoryColorGray, value: '#6b7280'),
   ];
 
-  static const List<IconOption> _iconOptions = [
-    IconOption(label: 'Globo', icon: Icons.public),
-    IconOption(label: 'Persona', icon: Icons.person_outline),
-    IconOption(label: 'Trabajo', icon: Icons.work_outline),
-    IconOption(label: 'Banco', icon: Icons.account_balance_outlined),
-    IconOption(label: 'Email', icon: Icons.mail_outline),
-    IconOption(label: 'Telefono', icon: Icons.phone_outlined),
-    IconOption(label: 'WiFi', icon: Icons.wifi),
-    IconOption(label: 'Estudio', icon: Icons.school_outlined),
-    IconOption(label: 'Shield', icon: Icons.shield_outlined),
-    IconOption(label: 'Cloud', icon: Icons.cloud_outlined),
-    IconOption(label: 'Star', icon: Icons.star_outline),
-    IconOption(label: 'Heart', icon: Icons.favorite_outline),
+  static List<IconOption> _iconOptions(AppLocalizations loc) => [
+    IconOption(key: 'globo', label: loc.formCategoryIconGlobe, icon: Icons.public),
+    IconOption(key: 'persona', label: loc.formCategoryIconPerson, icon: Icons.person_outline),
+    IconOption(key: 'trabajo', label: loc.formCategoryIconWork, icon: Icons.work_outline),
+    IconOption(key: 'banco', label: loc.formCategoryIconBank, icon: Icons.account_balance_outlined),
+    IconOption(key: 'email', label: loc.formCategoryIconEmail, icon: Icons.mail_outline),
+    IconOption(key: 'telefono', label: loc.formCategoryIconPhone, icon: Icons.phone_outlined),
+    IconOption(key: 'wifi', label: loc.formCategoryIconWifi, icon: Icons.wifi),
+    IconOption(key: 'estudio', label: loc.formCategoryIconStudy, icon: Icons.school_outlined),
+    IconOption(key: 'shield', label: loc.formCategoryIconShield, icon: Icons.shield_outlined),
+    IconOption(key: 'cloud', label: loc.formCategoryIconCloud, icon: Icons.cloud_outlined),
+    IconOption(key: 'star', label: loc.formCategoryIconStar, icon: Icons.star_outline),
+    IconOption(key: 'heart', label: loc.formCategoryIconHeart, icon: Icons.favorite_outline),
   ];
 
   @override
@@ -104,7 +104,7 @@ class _FormCategoryState extends State<FormCategory> {
               Wrap(
                 spacing: 10,
                 runSpacing: 10,
-                children: _colorOptions.map((option) {
+                children: _colorOptions(loc).map((option) {
                   final isSelected = _selectedColor == option.value;
                   return Tooltip(
                     message: option.label,
@@ -142,14 +142,14 @@ class _FormCategoryState extends State<FormCategory> {
               Wrap(
                 spacing: 10,
                 runSpacing: 10,
-                children: _iconOptions.map((option) {
+                children: _iconOptions(loc).map((option) {
                   final isSelected =
-                      _selectedIcon == option.label.toLowerCase();
+                      _selectedIcon == option.key;
                   return Tooltip(
                     message: option.label,
                     child: GestureDetector(
                       onTap: () => setState(
-                        () => _selectedIcon = option.label.toLowerCase(),
+                        () => _selectedIcon = option.key,
                       ),
                       child: Container(
                         width: 50,
@@ -219,8 +219,9 @@ class ColorOption {
 }
 
 class IconOption {
+  final String key;
   final String label;
   final IconData icon;
 
-  const IconOption({required this.label, required this.icon});
+  const IconOption({required this.key, required this.label, required this.icon});
 }

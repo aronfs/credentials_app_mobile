@@ -73,7 +73,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       if (isValid) {
         emit(PinVerified());
       } else {
-        emit(const PinVerificationFailed('PIN inválido'));
+        emit(const PinVerificationFailed('Invalid PIN'));
       }
     } catch (e) {
       emit(PinVerificationFailed(_formatPinError(e)));
@@ -100,7 +100,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         reason: event.reason,
       );
       if (!authenticated) {
-        emit(const AuthFailure('Autenticación cancelada.'));
+        emit(const AuthFailure('Authentication cancelled.'));
         return;
       }
       final auth = await _authRepository.refreshSession();
@@ -112,7 +112,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       if (msg.contains('No refresh token available')) {
         emit(
           const AuthFailure(
-            'Sesión expirada. Inicia sesión con tu correo y contraseña.',
+            'Session expired. Please sign in with your email and password.',
           ),
         );
       } else {
@@ -136,35 +136,35 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   String _formatLoginError(Object e) {
     final message = e.toString();
-    if (message.contains('401')) return 'Credenciales incorrectas';
+    if (message.contains('401')) return 'Invalid credentials';
     if (message.contains('SocketException') ||
         message.contains('Connection refused')) {
-      return 'No se pudo conectar con el servidor';
+      return 'Could not connect to the server';
     }
     if (message.contains('No refresh token available')) {
-      return 'Sesión expirada. Inicia sesión con tu correo y contraseña.';
+      return 'Session expired. Please sign in with your email and password.';
     }
-    return 'Error al iniciar sesión. Intente de nuevo.';
+    return 'Login failed. Please try again.';
   }
 
   String _formatRegisterError(Object e) {
     final message = e.toString();
     if (message.contains('400') || message.contains('422')) {
-      return 'Datos inválidos. Verifique la información.';
+      return 'Invalid data. Please check your information.';
     }
     if (message.contains('SocketException') ||
         message.contains('Connection refused')) {
-      return 'No se pudo conectar con el servidor';
+      return 'Could not connect to the server';
     }
-    return 'Error al registrar. Intente de nuevo.';
+    return 'Registration failed. Please try again.';
   }
 
   String _formatPinError(Object e) {
     final message = e.toString();
     if (message.contains('SocketException') ||
         message.contains('Connection refused')) {
-      return 'No se pudo conectar con el servidor';
+      return 'Could not connect to the server';
     }
-    return 'Error al verificar el PIN. Intente de nuevo.';
+    return 'PIN verification failed. Please try again.';
   }
 }

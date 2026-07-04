@@ -2,12 +2,14 @@ import 'package:archive_secure/data/auth/bloc/auth_bloc.dart';
 import 'package:archive_secure/data/auth/bloc/auth_event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:archive_secure/l10n/app_localizations.dart';
 
 class LogoutButton extends StatelessWidget {
   const LogoutButton({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
     final cs = Theme.of(context).colorScheme;
 
     return SizedBox(
@@ -18,7 +20,7 @@ class LogoutButton extends StatelessWidget {
           context.read<AuthBloc>().add(LogoutSubmitted());
         },
         icon: const Icon(Icons.logout),
-        label: const Text('Cerrar sesión'),
+        label: Text(loc.profileLogout),
         style: ElevatedButton.styleFrom(
           backgroundColor: cs.error,
           foregroundColor: cs.onError,

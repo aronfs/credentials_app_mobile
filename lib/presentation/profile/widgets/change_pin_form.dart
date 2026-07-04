@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:archive_secure/l10n/app_localizations.dart';
 
 class ChangePinForm extends StatefulWidget {
   final void Function(String currentPin, String newPin) onSave;
@@ -31,6 +32,7 @@ class _ChangePinFormState extends State<ChangePinForm> {
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
     final cs = Theme.of(context).colorScheme;
     final tt = Theme.of(context).textTheme;
 
@@ -53,7 +55,7 @@ class _ChangePinFormState extends State<ChangePinForm> {
                   Icon(Icons.pin_outlined, color: cs.secondary, size: 20),
                   const SizedBox(width: 12),
                   Text(
-                    'Cambiar PIN',
+                    loc.profileChangePin,
                     style: tt.bodyLarge?.copyWith(
                       fontWeight: FontWeight.w700,
                       color: cs.onSurface,
@@ -83,7 +85,7 @@ class _ChangePinFormState extends State<ChangePinForm> {
                       maxLength: 6,
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
-                        labelText: 'PIN actual',
+                        labelText: loc.profileCurrentPin,
                         counterText: '',
                         suffixIcon: IconButton(
                           icon: Icon(
@@ -97,7 +99,7 @@ class _ChangePinFormState extends State<ChangePinForm> {
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'El PIN actual es requerido';
+                          return loc.profileCurrentPinRequired;
                         }
                         return null;
                       },
@@ -109,7 +111,7 @@ class _ChangePinFormState extends State<ChangePinForm> {
                       maxLength: 6,
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
-                        labelText: 'Nuevo PIN (4-6 dígitos)',
+                        labelText: loc.profileNewPin,
                         counterText: '',
                         suffixIcon: IconButton(
                           icon: Icon(
@@ -121,16 +123,16 @@ class _ChangePinFormState extends State<ChangePinForm> {
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'El nuevo PIN es requerido';
+                          return loc.profileNewPinRequired;
                         }
                         if (value.length < 4 || value.length > 6) {
-                          return 'El PIN debe tener entre 4 y 6 dígitos';
+                          return loc.profileNewPinLength;
                         }
                         if (!RegExp(r'^\d+$').hasMatch(value)) {
-                          return 'El PIN solo debe contener dígitos';
+                          return loc.profileNewPinDigits;
                         }
                         if (value == _currentCtrl.text) {
-                          return 'El nuevo PIN debe ser diferente al actual';
+                          return loc.profileNewPinDifferent;
                         }
                         return null;
                       },
@@ -161,7 +163,7 @@ class _ChangePinFormState extends State<ChangePinForm> {
                                   color: Colors.white,
                                 ),
                               )
-                            : const Text('Cambiar PIN'),
+                            : Text(loc.profileChangePin),
                       ),
                     ),
                   ],

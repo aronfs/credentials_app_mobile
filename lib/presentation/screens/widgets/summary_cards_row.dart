@@ -1,3 +1,4 @@
+import 'package:archive_secure/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 import 'summary_card.dart';
@@ -7,21 +8,23 @@ class SummaryCardsRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Row(
+    final loc = AppLocalizations.of(context)!;
+
+    return Row(
       children: [
         Expanded(
           child: SummaryCard(
             icon: Icons.vpn_key_outlined,
-            label: 'Credenciales',
+            label: loc.dashboardSummaryCredentials,
             value: '42',
             badge: 'total',
           ),
         ),
-        SizedBox(width: 12),
+        const SizedBox(width: 12),
         Expanded(
           child: SummaryCard(
             icon: Icons.star,
-            label: 'Favoritos',
+            label: loc.dashboardSummaryFavorites,
             value: '8',
             badge: 'favs',
           ),

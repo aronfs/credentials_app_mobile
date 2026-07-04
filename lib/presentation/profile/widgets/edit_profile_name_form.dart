@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:archive_secure/l10n/app_localizations.dart';
 
 class EditProfileNameForm extends StatefulWidget {
   final String currentName;
@@ -43,6 +44,7 @@ class _EditProfileNameFormState extends State<EditProfileNameForm> {
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
     final cs = Theme.of(context).colorScheme;
     final tt = Theme.of(context).textTheme;
 
@@ -65,7 +67,7 @@ class _EditProfileNameFormState extends State<EditProfileNameForm> {
                   Icon(Icons.edit_outlined, color: cs.secondary, size: 20),
                   const SizedBox(width: 12),
                   Text(
-                    'Editar nombre',
+                    loc.profileEditName,
                     style: tt.bodyLarge?.copyWith(
                       fontWeight: FontWeight.w700,
                       color: cs.onSurface,
@@ -91,19 +93,19 @@ class _EditProfileNameFormState extends State<EditProfileNameForm> {
                   children: [
                     TextFormField(
                       controller: _controller,
-                      decoration: const InputDecoration(
-                        labelText: 'Nombre completo',
-                        hintText: 'Tu nombre',
+                      decoration: InputDecoration(
+                        labelText: loc.profileNameLabel,
+                        hintText: loc.profileNameHint,
                       ),
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
-                          return 'El nombre es requerido';
+                          return loc.profileNameRequired;
                         }
                         if (value.trim().length < 2) {
-                          return 'Mínimo 2 caracteres';
+                          return loc.profileNameMinLength;
                         }
                         if (value.trim().length > 80) {
-                          return 'Máximo 80 caracteres';
+                          return loc.profileNameMaxLength;
                         }
                         return null;
                       },
@@ -128,7 +130,7 @@ class _EditProfileNameFormState extends State<EditProfileNameForm> {
                                   color: Colors.white,
                                 ),
                               )
-                            : const Text('Guardar cambios'),
+                            : Text(loc.profileSaveChanges),
                       ),
                     ),
                   ],

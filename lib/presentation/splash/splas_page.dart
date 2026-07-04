@@ -1,3 +1,4 @@
+import 'package:archive_secure/l10n/app_localizations.dart';
 import 'package:archive_secure/navigation/route.dart';
 import 'package:archive_secure/presentation/splash/widgets/animated_brand_text.dart';
 import 'package:archive_secure/presentation/splash/widgets/animated_lock_badge.dart';
@@ -65,6 +66,7 @@ class _SplasPageState extends State<SplasPage>
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -113,8 +115,8 @@ class _SplasPageState extends State<SplasPage>
                           const SizedBox(height: 32),
 
                           AnimatedBrandText(
-                            title: 'Archivero\nSeguro',
-                            subtitle: 'Tus credenciales protegidas',
+                            title: loc.splashTitle,
+                            subtitle: loc.splashSubtitle,
                             titleProgress: _progressFor(_titleInterval),
                             subtitleProgress:
                                 _progressFor(_subtitleInterval),
@@ -127,6 +129,7 @@ class _SplasPageState extends State<SplasPage>
                                 _progressFor(_progressInterval) > 0 ? 1 : 0,
                             child: SplashLoadingIndicator(
                               progress: _progressFor(_progressInterval),
+                              label: loc.splashLoading,
                             ),
                           ),
                           const SizedBox(height: 28),

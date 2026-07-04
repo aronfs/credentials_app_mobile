@@ -1,3 +1,4 @@
+import 'package:archive_secure/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class CategoriesHeader extends StatelessWidget {
@@ -9,6 +10,7 @@ class CategoriesHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
     final tt = Theme.of(context).textTheme;
+    final loc = AppLocalizations.of(context)!;
 
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -18,7 +20,7 @@ class CategoriesHeader extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Categorías',
+                loc.categoriesTitle,
                 style: tt.titleMedium?.copyWith(
                   fontWeight: FontWeight.w900,
                   color: cs.onSurface,
@@ -26,7 +28,7 @@ class CategoriesHeader extends StatelessWidget {
               ),
               const SizedBox(height: 6),
               Text(
-                'Organiza tus credenciales de forma segura.',
+                loc.categoriesSubtitle,
                 style: tt.bodyMedium?.copyWith(
                   color: cs.onSurfaceVariant,
                   height: 1.25,

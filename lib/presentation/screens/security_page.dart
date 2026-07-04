@@ -50,25 +50,24 @@ class _SecurityPageState extends State<SecurityPage> {
   Future<void> _enableBiometric() async {
     setState(() => _isLoading = true);
     final tokenStorage = context.read<TokenStorage>();
+    final loc = AppLocalizations.of(context)!;
     try {
       final available = await _biometricService.isAvailable();
       if (!available) {
-        _showMessage('Este dispositivo no soporta autenticación biométrica.');
+        _showMessage(loc.biometricDeviceNotSupported);
         setState(() => _isLoading = false);
         return;
       }
 
       final enrolled = await _biometricService.hasEnrolledBiometrics();
       if (!enrolled) {
-        _showMessage(
-          'No tienes huellas o Face ID configurados en el dispositivo.',
-        );
+        _showMessage(loc.biometricNotEnrolledMessage);
         setState(() => _isLoading = false);
         return;
       }
 
       final authenticated = await _biometricService.authenticate(
-        reason: 'Activar inicio de sesión con huella',
+        reason: loc.biometricEnableReason,
       );
       if (!authenticated) {
         setState(() => _isLoading = false);
@@ -81,16 +80,17 @@ class _SecurityPageState extends State<SecurityPage> {
           _biometricEnabled = true;
           _isLoading = false;
         });
-        _showMessage('Inicio con huella activado correctamente.');
+        _showMessage(loc.biometricEnabledSuccess);
       }
     } on BiometricException catch (e) {
       if (mounted) {
-        _showMessage(e.message);
+        final msg = _locBiometricError(loc, e.type);
+        _showMessage(msg);
         setState(() => _isLoading = false);
       }
     } catch (e) {
       if (mounted) {
-        _showMessage('No se pudo completar la operación.');
+        _showMessage(loc.biometricOperationFailed);
         setState(() => _isLoading = false);
       }
     }
@@ -98,10 +98,11 @@ class _SecurityPageState extends State<SecurityPage> {
 
   Future<void> _disableBiometric() async {
     final tokenStorage = context.read<TokenStorage>();
+    final loc = AppLocalizations.of(context)!;
     await tokenStorage.saveBiometricEnabled(false);
     if (mounted) {
       setState(() => _biometricEnabled = false);
-      _showMessage('Inicio con huella desactivado.');
+      _showMessage(loc.biometricDisabledSuccess);
     }
   }
 
@@ -109,6 +110,23 @@ class _SecurityPageState extends State<SecurityPage> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text(message), behavior: SnackBarBehavior.floating),
     );
+  }
+
+  String _locBiometricError(AppLocalizations loc, BiometricErrorType type) {
+    switch (type) {
+      case BiometricErrorType.notAvailable:
+        return loc.biometricDeviceNotSupported;
+      case BiometricErrorType.notEnrolled:
+        return loc.biometricNotEnrolledMessage;
+      case BiometricErrorType.lockedOut:
+        return loc.biometricTooManyAttempts;
+      case BiometricErrorType.permanentlyLockedOut:
+        return loc.biometricBlocked;
+      case BiometricErrorType.userCancel:
+        return loc.biometricCancelled;
+      case BiometricErrorType.unknown:
+        return loc.biometricAuthFailedMessage;
+    }
   }
 
   @override

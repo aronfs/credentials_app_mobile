@@ -1,4 +1,5 @@
 import 'package:archive_secure/data/password_generator/bloc/password_generator_cubit.dart';
+import 'package:archive_secure/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -40,6 +41,7 @@ class _GeneratePageState extends State<GeneratePage> {
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
     final tt = Theme.of(context).textTheme;
+    final loc = AppLocalizations.of(context)!;
 
     return Scaffold(
       backgroundColor: cs.surface,
@@ -50,9 +52,9 @@ class _GeneratePageState extends State<GeneratePage> {
             child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Generador', style: tt.headlineMedium?.copyWith(color: cs.onSurface)),
+              Text(loc.passwordGeneratorTitle, style: tt.headlineMedium?.copyWith(color: cs.onSurface)),
               const SizedBox(height: 4),
-              Text('Crea contraseñas robustas y únicas.',
+              Text(loc.passwordGeneratorSubtitle,
                   style: tt.bodyMedium?.copyWith(color: cs.onSurfaceVariant)),
               const SizedBox(height: 24),
               BlocBuilder<PasswordGeneratorCubit, PasswordGeneratorState>(
@@ -77,7 +79,7 @@ class _GeneratePageState extends State<GeneratePage> {
                               children: [
                                 Expanded(
                                   child: Text(
-                                    isGenerating ? 'Generando...' : (_showPassword ? password : '••••••••••••••••'),
+                                    isGenerating ? loc.passwordGeneratorGenerating : (_showPassword ? password : '••••••••••••••••'),
                                     style: tt.titleLarge?.copyWith(
                                       fontWeight: FontWeight.w700,
                                       color: cs.onSurface,
@@ -116,14 +118,14 @@ class _GeneratePageState extends State<GeneratePage> {
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(state.generated!.strength == 'very_strong'
-                                      ? 'Muy fuerte'
+                                      ? loc.passwordGeneratorVeryStrong
                                       : state.generated!.strength == 'strong'
-                                          ? 'Fuerte'
+                                          ? loc.passwordGeneratorStrong
                                           : state.generated!.strength == 'medium'
-                                              ? 'Media'
-                                              : 'Débil',
+                                              ? loc.passwordGeneratorMedium
+                                              : loc.weak,
                                       style: tt.labelSmall?.copyWith(color: cs.onSurfaceVariant)),
-                                  Text('$score/100',
+                                  Text('$score${loc.passwordGeneratorScoreOutOf}',
                                       style: tt.labelSmall?.copyWith(color: cs.onSurfaceVariant)),
                                 ],
                               ),
@@ -142,7 +144,7 @@ class _GeneratePageState extends State<GeneratePage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Longitud: $_length',
+                            Text('${loc.passwordGeneratorLength}: $_length',
                                 style: tt.bodyMedium?.copyWith(color: cs.onSurface, fontWeight: FontWeight.w600)),
                             Slider(
                               value: _length.toDouble(),
@@ -153,11 +155,11 @@ class _GeneratePageState extends State<GeneratePage> {
                               onChanged: (v) => setState(() => _length = v.round()),
                             ),
                             const SizedBox(height: 8),
-                            _OptionRow('Mayúsculas (A-Z)', _uppercase, (v) => setState(() => _uppercase = v)),
-                            _OptionRow('Minúsculas (a-z)', _lowercase, (v) => setState(() => _lowercase = v)),
-                            _OptionRow('Números (0-9)', _numbers, (v) => setState(() => _numbers = v)),
-                            _OptionRow('Símbolos (!@#\$%)', _symbols, (v) => setState(() => _symbols = v)),
-                            _OptionRow('Evitar similares', _excludeSimilar, (v) => setState(() => _excludeSimilar = v)),
+                            _OptionRow(loc.passwordGeneratorUppercase, _uppercase, (v) => setState(() => _uppercase = v)),
+                            _OptionRow(loc.passwordGeneratorLowercase, _lowercase, (v) => setState(() => _lowercase = v)),
+                            _OptionRow(loc.passwordGeneratorNumbers, _numbers, (v) => setState(() => _numbers = v)),
+                            _OptionRow(loc.passwordGeneratorSymbols, _symbols, (v) => setState(() => _symbols = v)),
+                            _OptionRow(loc.passwordGeneratorAvoidSimilar, _excludeSimilar, (v) => setState(() => _excludeSimilar = v)),
                           ],
                         ),
                       ),
@@ -167,7 +169,7 @@ class _GeneratePageState extends State<GeneratePage> {
                         child: FilledButton.icon(
                           onPressed: isGenerating ? null : _generate,
                           icon: const Icon(Icons.refresh),
-                          label: const Text('Generar nueva contraseña'),
+                          label: Text(loc.passwordGeneratorGenerate),
                         ),
                       ),
                       if (password.isNotEmpty) ...[
@@ -178,11 +180,11 @@ class _GeneratePageState extends State<GeneratePage> {
                             onPressed: () {
                               Clipboard.setData(ClipboardData(text: password));
                               ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text('Contraseña copiada al portapapeles')),
+                                SnackBar(content: Text(loc.passwordGeneratorCopied)),
                               );
                             },
                             icon: const Icon(Icons.copy),
-                            label: const Text('Copiar contraseña'),
+                            label: Text(loc.passwordGeneratorCopy),
                           ),
                         ),
                       ],

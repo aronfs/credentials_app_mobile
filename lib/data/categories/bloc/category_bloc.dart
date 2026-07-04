@@ -87,15 +87,15 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
 
   String _formatError(Object e) {
     final message = e.toString();
-    if (message.contains('403')) return 'No tienes permiso para esta acción';
-    if (message.contains('404')) return 'Categoría no encontrada';
+    if (message.contains('403')) return 'You do not have permission for this action';
+    if (message.contains('404')) return 'Category not found';
     if (message.contains('400') || message.contains('422')) {
-      return 'Datos inválidos. Verifique la información.';
+      return 'Invalid data. Please check the information.';
     }
     if (message.contains('SocketException') ||
         message.contains('Connection refused')) {
-      return 'No se pudo conectar con el servidor';
+      return 'Could not connect to the server';
     }
-    return 'Error al procesar la solicitud. Intente de nuevo.';
+    return 'Error processing the request. Please try again.';
   }
 }

@@ -1,3 +1,4 @@
+import 'package:archive_secure/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class HomeHeader extends StatelessWidget {
@@ -7,6 +8,7 @@ class HomeHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
     final tt = Theme.of(context).textTheme;
+    final loc = AppLocalizations.of(context)!;
 
     return Row(
       children: [
@@ -20,9 +22,9 @@ class HomeHeader extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Bienvenido,', style: tt.bodyMedium),
+              Text(loc.dashboardWelcome, style: tt.bodyMedium),
               Text(
-                'Hola, Usuario',
+                loc.dashboardHelloUser,
                 style: tt.titleLarge?.copyWith(
                   fontWeight: FontWeight.w900,
                   color: cs.onSurface,

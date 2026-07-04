@@ -1,5 +1,6 @@
 import 'package:archive_secure/domain/entities/profile_stats_entity.dart';
 import 'package:flutter/material.dart';
+import 'package:archive_secure/l10n/app_localizations.dart';
 
 class ProfileStatsCard extends StatelessWidget {
   final ProfileStatsEntity stats;
@@ -8,6 +9,7 @@ class ProfileStatsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
     final cs = Theme.of(context).colorScheme;
 
     return Container(
@@ -23,21 +25,21 @@ class ProfileStatsCard extends StatelessWidget {
           _StatItem(
             icon: Icons.lock_outline,
             value: '${stats.totalCredentials}',
-            label: 'Credenciales',
+            label: loc.profileStatsCredentials,
             color: cs.secondary,
           ),
           _divider(cs),
           _StatItem(
             icon: Icons.folder_outlined,
             value: '${stats.totalCategories}',
-            label: 'Categorías',
+            label: loc.profileStatsCategories,
             color: cs.tertiary,
           ),
           _divider(cs),
           _StatItem(
             icon: Icons.star_outline,
             value: '${stats.totalFavorites}',
-            label: 'Favoritos',
+            label: loc.profileStatsFavorites,
             color: Colors.amber,
           ),
         ],

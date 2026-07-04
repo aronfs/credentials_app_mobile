@@ -177,7 +177,7 @@ class _SignInPageState extends State<SignInPage> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(e.message),
+            content: Text(_locBiometricError(loc, e.type)),
             backgroundColor: Colors.red.shade700,
           ),
         );
@@ -191,6 +191,23 @@ class _SignInPageState extends State<SignInPage> {
           ),
         );
       }
+    }
+  }
+
+  String _locBiometricError(AppLocalizations loc, BiometricErrorType type) {
+    switch (type) {
+      case BiometricErrorType.notAvailable:
+        return loc.biometricDeviceNotSupported;
+      case BiometricErrorType.notEnrolled:
+        return loc.biometricNotEnrolledMessage;
+      case BiometricErrorType.lockedOut:
+        return loc.biometricTooManyAttempts;
+      case BiometricErrorType.permanentlyLockedOut:
+        return loc.biometricBlocked;
+      case BiometricErrorType.userCancel:
+        return loc.biometricCancelled;
+      case BiometricErrorType.unknown:
+        return loc.biometricAuthFailedMessage;
     }
   }
 

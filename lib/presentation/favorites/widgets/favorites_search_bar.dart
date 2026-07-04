@@ -1,3 +1,4 @@
+import 'package:archive_secure/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class FavoritesSearchBar extends StatefulWidget {
@@ -38,12 +39,13 @@ class _FavoritesSearchBarState extends State<FavoritesSearchBar> {
   @override
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
+    final loc = AppLocalizations.of(context)!;
 
     return TextField(
       controller: _controller,
       onChanged: _onChanged,
       decoration: InputDecoration(
-        hintText: 'Buscar por servicio, email o usuario',
+        hintText: loc.favoritesSearchHint,
         prefixIcon: const Icon(Icons.search),
         suffixIcon: _hasText
             ? IconButton(

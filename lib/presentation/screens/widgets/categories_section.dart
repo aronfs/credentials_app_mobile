@@ -1,3 +1,4 @@
+import 'package:archive_secure/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 import 'category_card.dart';
@@ -8,11 +9,12 @@ class CategoriesSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final tt = Theme.of(context).textTheme;
+    final loc = AppLocalizations.of(context)!;
 
     final categories = [
-      (Icons.public, 'Webs'),
-      (Icons.account_balance, 'Bancos'),
-      (Icons.work_outline, 'Trabajo'),
+      (Icons.public, loc.homeWebs),
+      (Icons.account_balance, loc.homeBanks),
+      (Icons.work_outline, loc.homeWork),
     ];
 
     return Column(
@@ -20,7 +22,7 @@ class CategoriesSection extends StatelessWidget {
         Row(
           children: [
             Text(
-              'Categorías',
+              loc.homeCategories,
               style: tt.titleMedium?.copyWith(
                 fontWeight: FontWeight.w800,
               ),
@@ -28,7 +30,7 @@ class CategoriesSection extends StatelessWidget {
             const Spacer(),
             TextButton(
               onPressed: () {},
-              child: const Text('Ver todas'),
+              child: Text(loc.dashboardViewAll),
             ),
           ],
         ),

@@ -8,11 +8,11 @@ extension PasswordStrengthExt on PasswordStrength {
       case PasswordStrength.empty:
         return '';
       case PasswordStrength.weak:
-        return 'Débil';
+        return 'Weak';
       case PasswordStrength.medium:
-        return 'Medio';
+        return 'Medium';
       case PasswordStrength.strong:
-        return 'Fuerte';
+        return 'Strong';
     }
   }
 

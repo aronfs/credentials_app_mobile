@@ -15,7 +15,8 @@ class AppLocalizationsEs extends AppLocalizations {
   String get welcome => 'Guarda tus cuentas';
 
   @override
-  String get paragraph => 'Almacena de forma segura tus correos electrónicos, nombres de usuario y contraseñas en una bóveda digital impenetrable.';
+  String get paragraph =>
+      'Almacena de forma segura tus correos electrónicos, nombres de usuario y contraseñas en una bóveda digital impenetrable.';
 
   @override
   String get next => 'siguente';
@@ -27,7 +28,8 @@ class AppLocalizationsEs extends AppLocalizations {
   String get titleSecondPage => 'Seguridad Primero';
 
   @override
-  String get paragraphSecondPage => 'Tus datos están protegidos con encriptación de grado militar. Solo tú tienes acceso mediante tu PIN maestro o autenticación biométrica.';
+  String get paragraphSecondPage =>
+      'Tus datos están protegidos con encriptación de grado militar. Solo tú tienes acceso mediante tu PIN maestro o autenticación biométrica.';
 
   @override
   String get onboardTitle => 'Encriptación AES-256';
@@ -39,13 +41,15 @@ class AppLocalizationsEs extends AppLocalizations {
   String get onboardTitleSecond => 'Biometría Integrada';
 
   @override
-  String get onboardParagraphSecond => 'Acceso rápido con Face ID o huella dactilar.';
+  String get onboardParagraphSecond =>
+      'Acceso rápido con Face ID o huella dactilar.';
 
   @override
   String get onboardTitleThird => 'Acceso rápido';
 
   @override
-  String get onboardParagraphThird => 'Encuentra lo que necesitas al instante. Organiza tus credenciales con etiquetas, marcas de favoritos y un motor de búsqueda potente y seguro.';
+  String get onboardParagraphThird =>
+      'Encuentra lo que necesitas al instante. Organiza tus credenciales con etiquetas, marcas de favoritos y un motor de búsqueda potente y seguro.';
 
   @override
   String get labelThird => 'Favoritos';
@@ -207,7 +211,8 @@ class AppLocalizationsEs extends AppLocalizations {
   String get categoryDelete => 'Eliminar categoría';
 
   @override
-  String get categoryDeleteConfirm => '¿Estás seguro de eliminar esta categoría?';
+  String get categoryDeleteConfirm =>
+      '¿Estás seguro de eliminar esta categoría?';
 
   @override
   String get categoryName => 'Nombre';
@@ -246,7 +251,8 @@ class AppLocalizationsEs extends AppLocalizations {
   String get credentialDelete => 'Eliminar credencial';
 
   @override
-  String get credentialDeleteConfirm => '¿Estás seguro de eliminar esta credencial?';
+  String get credentialDeleteConfirm =>
+      '¿Estás seguro de eliminar esta credencial?';
 
   @override
   String get credentialServiceName => 'Nombre del servicio';
@@ -270,7 +276,8 @@ class AppLocalizationsEs extends AppLocalizations {
   String get credentialPassword => 'Contraseña';
 
   @override
-  String get credentialPasswordKeepHint => 'Contraseña (dejar vacío para no cambiar)';
+  String get credentialPasswordKeepHint =>
+      'Contraseña (dejar vacío para no cambiar)';
 
   @override
   String get credentialPasswordHint => 'Sin espacios';
@@ -333,7 +340,8 @@ class AppLocalizationsEs extends AppLocalizations {
   String get biometricSetupTitle => 'Configurar acceso biométrico';
 
   @override
-  String get biometricSetupDescription => 'Usa reconocimiento facial o huella para acceder más rápido y seguro.';
+  String get biometricSetupDescription =>
+      'Usa reconocimiento facial o huella para acceder más rápido y seguro.';
 
   @override
   String get biometricSetupActivate => 'Activar biometría';
@@ -345,7 +353,8 @@ class AppLocalizationsEs extends AppLocalizations {
   String get biometricEnableDialogTitle => '¿Deseas activar la huella?';
 
   @override
-  String get biometricEnableDialogMessage => 'Podrás acceder a tu bóveda usando tu huella digital o Face ID sin escribir tu correo y contraseña cada vez.';
+  String get biometricEnableDialogMessage =>
+      'Podrás acceder a tu bóveda usando tu huella digital o Face ID sin escribir tu correo y contraseña cada vez.';
 
   @override
   String get biometricEnableDialogNotNow => 'Ahora no';
@@ -354,28 +363,35 @@ class AppLocalizationsEs extends AppLocalizations {
   String get biometricEnableDialogActivate => 'Activar';
 
   @override
-  String get biometricEnabledSuccess => 'Acceso biométrico activado correctamente.';
+  String get biometricEnabledSuccess =>
+      'Acceso biométrico activado correctamente.';
 
   @override
-  String get biometricAccessEnabledSuccessfully => 'Acceso biométrico activado correctamente.';
+  String get biometricAccessEnabledSuccessfully =>
+      'Acceso biométrico activado correctamente.';
 
   @override
   String get biometricDisabledSuccess => 'Inicio con huella desactivado.';
 
   @override
-  String get biometricUnavailable => 'La autenticación biométrica no está disponible.';
+  String get biometricUnavailable =>
+      'La autenticación biométrica no está disponible.';
 
   @override
-  String get biometricAuthenticationNotAvailable => 'La autenticación biométrica no está disponible.';
+  String get biometricAuthenticationNotAvailable =>
+      'La autenticación biométrica no está disponible.';
 
   @override
-  String get biometricNotEnrolled => 'Configura reconocimiento facial o huella en los ajustes de Android.';
+  String get biometricNotEnrolled =>
+      'Configura reconocimiento facial o huella en los ajustes de Android.';
 
   @override
-  String get biometricConfigureInSettings => 'Configura reconocimiento facial o huella en los ajustes de Android.';
+  String get biometricConfigureInSettings =>
+      'Configura reconocimiento facial o huella en los ajustes de Android.';
 
   @override
-  String get biometricEnableFailed => 'No se pudo activar la autenticación biométrica.';
+  String get biometricEnableFailed =>
+      'No se pudo activar la autenticación biométrica.';
 
   @override
   String get biometricAuthFailed => 'La autenticación biométrica falló';
@@ -384,16 +400,19 @@ class AppLocalizationsEs extends AppLocalizations {
   String get biometricUnlockTitle => 'Desbloqueo biométrico';
 
   @override
-  String get biometricUnlockSubtitleAvailable => 'Accede con tu huella o Face ID';
+  String get biometricUnlockSubtitleAvailable =>
+      'Accede con tu huella o Face ID';
 
   @override
-  String get biometricUnlockSubtitleUnavailable => 'Biometría no disponible en este dispositivo';
+  String get biometricUnlockSubtitleUnavailable =>
+      'Biometría no disponible en este dispositivo';
 
   @override
   String get faceSetupTitle => 'Configurar reconocimiento facial';
 
   @override
-  String get faceSetupDescription => 'Usa reconocimiento facial para desbloquear Archivero Seguro más rápido.';
+  String get faceSetupDescription =>
+      'Usa reconocimiento facial para desbloquear Archivero Seguro más rápido.';
 
   @override
   String get faceSetupActivate => 'Activar reconocimiento facial';
@@ -402,19 +421,23 @@ class AppLocalizationsEs extends AppLocalizations {
   String get faceSetupSkip => 'Omitir por ahora';
 
   @override
-  String get faceRecognitionNotAvailableOnDevice => 'El reconocimiento facial no está disponible en este dispositivo';
+  String get faceRecognitionNotAvailableOnDevice =>
+      'El reconocimiento facial no está disponible en este dispositivo';
 
   @override
-  String get faceRecognitionConfigureInSettings => 'Configura reconocimiento facial en los ajustes de Android';
+  String get faceRecognitionConfigureInSettings =>
+      'Configura reconocimiento facial en los ajustes de Android';
 
   @override
-  String get faceRecognitionNotAvailableOrConfigured => 'El reconocimiento facial no está disponible o no está configurado';
+  String get faceRecognitionNotAvailableOrConfigured =>
+      'El reconocimiento facial no está disponible o no está configurado';
 
   @override
   String get faceAuthenticationFailed => 'La autenticación facial falló';
 
   @override
-  String get faceAuthenticationEnabledSuccessfully => 'Autenticación facial activada correctamente';
+  String get faceAuthenticationEnabledSuccessfully =>
+      'Autenticación facial activada correctamente';
 
   @override
   String get dashboardTitle => 'Dashboard';
@@ -450,7 +473,8 @@ class AppLocalizationsEs extends AppLocalizations {
   String get dashboardSecurityScoreRisk => 'Riesgo alto';
 
   @override
-  String get dashboardSecurityScoreDescription => 'Tus credenciales están protegidas con cifrado de extremo a extremo.';
+  String get dashboardSecurityScoreDescription =>
+      'Tus credenciales están protegidas con cifrado de extremo a extremo.';
 
   @override
   String get dashboardRecentCredentials => 'Últimas agregadas';
@@ -468,7 +492,8 @@ class AppLocalizationsEs extends AppLocalizations {
   String get dashboardNoFavorites => 'No tienes credenciales favoritas';
 
   @override
-  String get dashboardNoFavoritesHint => 'Marca una credencial con estrella para verla aquí';
+  String get dashboardNoFavoritesHint =>
+      'Marca una credencial con estrella para verla aquí';
 
   @override
   String get dashboardTopCategories => 'Categorías principales';
@@ -486,7 +511,8 @@ class AppLocalizationsEs extends AppLocalizations {
   String get dashboardNoAlerts => 'No tienes alertas de seguridad';
 
   @override
-  String get dashboardNoAlertsSubtitle => 'Tus credenciales se encuentran protegidas';
+  String get dashboardNoAlertsSubtitle =>
+      'Tus credenciales se encuentran protegidas';
 
   @override
   String get dashboardNoDate => 'Sin fecha';
@@ -498,7 +524,8 @@ class AppLocalizationsEs extends AppLocalizations {
   String get dashboardYesterday => 'Ayer';
 
   @override
-  String get dashboardError => 'Error al cargar el dashboard. Intente de nuevo.';
+  String get dashboardError =>
+      'Error al cargar el dashboard. Intente de nuevo.';
 
   @override
   String get dashboardRetry => 'Reintentar';
@@ -552,7 +579,8 @@ class AppLocalizationsEs extends AppLocalizations {
   String get profileNewPinLength => 'El PIN debe tener entre 4 y 6 dígitos';
 
   @override
-  String get profileNewPinDifferent => 'El nuevo PIN debe ser diferente al actual';
+  String get profileNewPinDifferent =>
+      'El nuevo PIN debe ser diferente al actual';
 
   @override
   String get profileChangePassword => 'Cambiar contraseña';
@@ -561,7 +589,8 @@ class AppLocalizationsEs extends AppLocalizations {
   String get profileCurrentPassword => 'Contraseña actual';
 
   @override
-  String get profileCurrentPasswordRequired => 'La contraseña actual es requerida';
+  String get profileCurrentPasswordRequired =>
+      'La contraseña actual es requerida';
 
   @override
   String get profileNewPassword => 'Nueva contraseña';
@@ -573,28 +602,33 @@ class AppLocalizationsEs extends AppLocalizations {
   String get profileNewPasswordMinLength => 'Mínimo 8 caracteres';
 
   @override
-  String get profileNewPasswordDifferent => 'La nueva contraseña debe ser diferente a la actual';
+  String get profileNewPasswordDifferent =>
+      'La nueva contraseña debe ser diferente a la actual';
 
   @override
   String get profileConfirmPassword => 'Confirmar nueva contraseña';
 
   @override
-  String get profileConfirmPasswordRequired => 'Debe confirmar la nueva contraseña';
+  String get profileConfirmPasswordRequired =>
+      'Debe confirmar la nueva contraseña';
 
   @override
   String get profilePasswordsDoNotMatch => 'Las contraseñas no coinciden';
 
   @override
-  String get profilePasswordChangeWarning => 'Al cambiar tu contraseña se cerrarán todas tus sesiones activas.';
+  String get profilePasswordChangeWarning =>
+      'Al cambiar tu contraseña se cerrarán todas tus sesiones activas.';
 
   @override
-  String get profileSessionExpired => 'Sesión expirada. Inicia sesión nuevamente.';
+  String get profileSessionExpired =>
+      'Sesión expirada. Inicia sesión nuevamente.';
 
   @override
   String get profilePinUpdated => 'PIN actualizado correctamente';
 
   @override
-  String get profilePasswordUpdated => 'Contraseña actualizada correctamente. Serás redirigido al inicio de sesión.';
+  String get profilePasswordUpdated =>
+      'Contraseña actualizada correctamente. Serás redirigido al inicio de sesión.';
 
   @override
   String get profileNameUpdated => 'Nombre actualizado correctamente';
@@ -651,13 +685,15 @@ class AppLocalizationsEs extends AppLocalizations {
   String get favoritesEmpty => 'Aún no tienes favoritos';
 
   @override
-  String get favoritesEmptyHint => 'Marca una credencial con estrella para verla aquí.';
+  String get favoritesEmptyHint =>
+      'Marca una credencial con estrella para verla aquí.';
 
   @override
   String get favoritesNoResults => 'No se encontraron favoritos';
 
   @override
-  String get favoritesNoResultsHint => 'Intenta buscar con otro servicio, email o usuario.';
+  String get favoritesNoResultsHint =>
+      'Intenta buscar con otro servicio, email o usuario.';
 
   @override
   String get favoritesRemove => 'Quitar de favoritos';
@@ -696,10 +732,12 @@ class AppLocalizationsEs extends AppLocalizations {
   String get profileImageDeleted => 'Foto de perfil eliminada correctamente.';
 
   @override
-  String get profileImageTooLarge => 'El archivo supera el tamaño máximo de 5 MB.';
+  String get profileImageTooLarge =>
+      'El archivo supera el tamaño máximo de 5 MB.';
 
   @override
-  String get profileImageInvalidFormat => 'Formato no permitido. Usa JPG, PNG o WEBP.';
+  String get profileImageInvalidFormat =>
+      'Formato no permitido. Usa JPG, PNG o WEBP.';
 
   @override
   String get profileImageLoadError => 'No se pudo cargar la foto de perfil.';
@@ -745,4 +783,205 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get appearanceSection => 'Apariencia';
+
+  @override
+  String get passwordGeneratorTitle => 'Generador';
+
+  @override
+  String get passwordGeneratorSubtitle => 'Crea contraseñas robustas y únicas.';
+
+  @override
+  String get passwordGeneratorGenerating => 'Generando...';
+
+  @override
+  String get passwordGeneratorVeryStrong => 'Muy fuerte';
+
+  @override
+  String get passwordGeneratorStrong => 'Fuerte';
+
+  @override
+  String get passwordGeneratorMedium => 'Media';
+
+  @override
+  String get passwordGeneratorLength => 'Longitud';
+
+  @override
+  String get passwordGeneratorUppercase => 'Mayúsculas (A-Z)';
+
+  @override
+  String get passwordGeneratorLowercase => 'Minúsculas (a-z)';
+
+  @override
+  String get passwordGeneratorNumbers => 'Números (0-9)';
+
+  @override
+  String get passwordGeneratorSymbols => 'Símbolos (!@#\$%)';
+
+  @override
+  String get passwordGeneratorAvoidSimilar => 'Evitar similares';
+
+  @override
+  String get passwordGeneratorGenerate => 'Generar nueva contraseña';
+
+  @override
+  String get passwordGeneratorCopied => 'Contraseña copiada al portapapeles';
+
+  @override
+  String get passwordGeneratorCopy => 'Copiar contraseña';
+
+  @override
+  String get passwordGeneratorScoreOutOf => '/100';
+
+  @override
+  String get dashboardGeneratePassword => 'Generar contraseña';
+
+  @override
+  String get dashboardMyProfile => 'Mi perfil';
+
+  @override
+  String get dashboardSecurity => 'Seguridad';
+
+  @override
+  String get dashboardWelcome => 'Bienvenido,';
+
+  @override
+  String get dashboardHelloUser => 'Hola, Usuario';
+
+  @override
+  String get dashboardViewAll => 'Ver todas';
+
+  @override
+  String get dashboardRecentAdded => 'Últimas agregadas';
+
+  @override
+  String get dashboardNoCredentialsMessage =>
+      'Aún no tienes credenciales. Crea tu primera credencial segura.';
+
+  @override
+  String get homeWebs => 'Webs';
+
+  @override
+  String get homeBanks => 'Bancos';
+
+  @override
+  String get homeWork => 'Trabajo';
+
+  @override
+  String get homeCategories => 'Categorías';
+
+  @override
+  String get splashTitle => 'Archivero\nSeguro';
+
+  @override
+  String get splashSubtitle => 'Tus credenciales protegidas';
+
+  @override
+  String get splashLoading => 'INICIANDO';
+
+  @override
+  String get biometricAuthFailedMessage =>
+      'No se pudo completar la autenticación biométrica.';
+
+  @override
+  String get biometricDeviceNotSupported =>
+      'Este dispositivo no soporta autenticación biométrica.';
+
+  @override
+  String get biometricNotEnrolledMessage =>
+      'No tienes huellas o Face ID configurados en el dispositivo.';
+
+  @override
+  String get biometricTooManyAttempts =>
+      'Demasiados intentos fallidos. Intenta nuevamente más tarde.';
+
+  @override
+  String get biometricBlocked =>
+      'La biometría está bloqueada. Desbloquéala desde los ajustes del dispositivo.';
+
+  @override
+  String get biometricCancelled => 'Autenticación cancelada.';
+
+  @override
+  String get biometricOperationFailed => 'No se pudo completar la operación.';
+
+  @override
+  String get formCategoryColorBlue => 'Azul';
+
+  @override
+  String get formCategoryColorRed => 'Rojo';
+
+  @override
+  String get formCategoryColorGreen => 'Verde';
+
+  @override
+  String get formCategoryColorYellow => 'Amarillo';
+
+  @override
+  String get formCategoryColorPurple => 'Púrpura';
+
+  @override
+  String get formCategoryColorPink => 'Rosa';
+
+  @override
+  String get formCategoryColorOrange => 'Naranja';
+
+  @override
+  String get formCategoryColorGray => 'Gris';
+
+  @override
+  String get formCategoryIconGlobe => 'Globo';
+
+  @override
+  String get formCategoryIconPerson => 'Persona';
+
+  @override
+  String get formCategoryIconWork => 'Trabajo';
+
+  @override
+  String get formCategoryIconBank => 'Banco';
+
+  @override
+  String get formCategoryIconEmail => 'Email';
+
+  @override
+  String get formCategoryIconPhone => 'Teléfono';
+
+  @override
+  String get formCategoryIconWifi => 'WiFi';
+
+  @override
+  String get formCategoryIconStudy => 'Estudio';
+
+  @override
+  String get formCategoryIconShield => 'Shield';
+
+  @override
+  String get formCategoryIconCloud => 'Cloud';
+
+  @override
+  String get formCategoryIconStar => 'Star';
+
+  @override
+  String get formCategoryIconHeart => 'Heart';
+
+  @override
+  String get credentialsFilterCategories => 'Categorías';
+
+  @override
+  String get credentialsFilterFavorites => 'Favoritos';
+
+  @override
+  String get passwordStrengthVeryStrong => 'MUY FUERTE';
+
+  @override
+  String get retry => 'Reintentar';
+
+  @override
+  String get cancel => 'Cancelar';
+
+  @override
+  String get save => 'Guardar';
+
+  @override
+  String get change => 'Cambiar';
 }

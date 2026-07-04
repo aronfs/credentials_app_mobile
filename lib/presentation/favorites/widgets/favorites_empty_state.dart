@@ -1,3 +1,4 @@
+import 'package:archive_secure/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class FavoritesEmptyState extends StatelessWidget {
@@ -14,6 +15,7 @@ class FavoritesEmptyState extends StatelessWidget {
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
     final tt = Theme.of(context).textTheme;
+    final loc = AppLocalizations.of(context)!;
 
     return Center(
       child: Padding(
@@ -28,7 +30,7 @@ class FavoritesEmptyState extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             Text(
-              isSearchEmpty ? 'No se encontraron favoritos' : 'Aún no tienes favoritos',
+              isSearchEmpty ? loc.favoritesNoResults : loc.favoritesEmpty,
               style: tt.titleMedium?.copyWith(
                 fontWeight: FontWeight.w700,
                 color: cs.onSurface,
@@ -38,8 +40,8 @@ class FavoritesEmptyState extends StatelessWidget {
             const SizedBox(height: 8),
             Text(
               isSearchEmpty
-                  ? 'Intenta buscar con otro servicio, email o usuario.'
-                  : 'Marca una credencial con estrella para verla aquí.',
+                  ? loc.favoritesNoResultsHint
+                  : loc.favoritesEmptyHint,
               style: tt.bodyMedium?.copyWith(
                 color: cs.onSurfaceVariant,
               ),

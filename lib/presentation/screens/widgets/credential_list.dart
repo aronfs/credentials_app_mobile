@@ -1,4 +1,5 @@
 import 'package:archive_secure/data/credentials/domain/entity/credential.dart';
+import 'package:archive_secure/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 import 'credential_list_item.dart';
@@ -24,6 +25,7 @@ class CredentialList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (credentials.isEmpty) {
+      final loc = AppLocalizations.of(context)!;
       return Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -33,7 +35,7 @@ class CredentialList extends StatelessWidget {
                 color: Theme.of(context).colorScheme.onSurfaceVariant),
             const SizedBox(height: 12),
             Text(
-              'No hay credenciales aún',
+              loc.credentialEmpty,
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     color: Theme.of(context).colorScheme.onSurfaceVariant,
                   ),

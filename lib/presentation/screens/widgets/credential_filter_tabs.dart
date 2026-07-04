@@ -1,3 +1,4 @@
+import 'package:archive_secure/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class CredentialFilterTabs extends StatelessWidget {
@@ -12,12 +13,13 @@ class CredentialFilterTabs extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
     return Row(
       children: [
         Expanded(
           child: _FilterTab(
             icon: Icons.folder_open_outlined,
-            label: 'Categorías',
+            label: loc.credentialsFilterCategories,
             onTap: onCategoryTap,
           ),
         ),
@@ -25,7 +27,7 @@ class CredentialFilterTabs extends StatelessWidget {
         Expanded(
           child: _FilterTab(
             icon: Icons.star_border,
-            label: 'Favoritos',
+            label: loc.credentialsFilterFavorites,
             onTap: onFavoriteTap,
           ),
         ),

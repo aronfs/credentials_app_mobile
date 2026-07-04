@@ -1,3 +1,4 @@
+import 'package:archive_secure/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class CredentialsSearchField extends StatefulWidget {
@@ -27,12 +28,13 @@ class _CredentialsSearchFieldState extends State<CredentialsSearchField> {
   @override
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
+    final loc = AppLocalizations.of(context)!;
 
     return TextField(
       controller: _controller,
       onSubmitted: (value) => widget.onSearch(value),
       decoration: InputDecoration(
-        hintText: 'Buscar credenciales, notas, bancos...',
+        hintText: loc.credentialSearch,
         prefixIcon: const Icon(Icons.search),
         suffixIcon: _controller.text.isNotEmpty
             ? IconButton(

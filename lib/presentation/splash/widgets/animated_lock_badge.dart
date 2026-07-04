@@ -86,7 +86,7 @@ class _AnimatedLockBadgeState extends State<AnimatedLockBadge>
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           color: widget.lockShackleColor
-                              .withOpacity(haloOpacity),
+                              .withValues(alpha: haloOpacity),
                         ),
                       ),
                     ),
@@ -99,7 +99,7 @@ class _AnimatedLockBadgeState extends State<AnimatedLockBadge>
                         shape: BoxShape.circle,
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.08),
+                            color: Colors.black.withValues(alpha: 0.08),
                             blurRadius: 16,
                             offset: const Offset(0, 6),
                           ),

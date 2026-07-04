@@ -65,7 +65,7 @@ class BiometricService {
     } catch (e) {
       throw const BiometricException(
         type: BiometricErrorType.unknown,
-        message: 'No se pudo completar la autenticación biométrica.',
+        message: 'Biometric authentication failed.',
       );
     }
   }
@@ -75,38 +75,35 @@ class BiometricService {
       case LocalAuthExceptionCode.noBiometricHardware:
         return const BiometricException(
           type: BiometricErrorType.notAvailable,
-          message: 'Este dispositivo no soporta autenticación biométrica.',
+          message: 'Biometric authentication not available on this device.',
         );
       case LocalAuthExceptionCode.noBiometricsEnrolled:
       case LocalAuthExceptionCode.noCredentialsSet:
         return const BiometricException(
           type: BiometricErrorType.notEnrolled,
-          message:
-              'No tienes huellas o Face ID configurados en el dispositivo.',
+          message: 'No biometrics enrolled on this device.',
         );
       case LocalAuthExceptionCode.temporaryLockout:
         return const BiometricException(
           type: BiometricErrorType.lockedOut,
-          message:
-              'Demasiados intentos fallidos. Intenta nuevamente más tarde.',
+          message: 'Too many failed attempts. Try again later.',
         );
       case LocalAuthExceptionCode.biometricLockout:
         return const BiometricException(
           type: BiometricErrorType.permanentlyLockedOut,
-          message:
-              'La biometría está bloqueada. Desbloquéala desde los ajustes del dispositivo.',
+          message: 'Biometrics is blocked. Unlock it from device settings.',
         );
       case LocalAuthExceptionCode.userCanceled:
       case LocalAuthExceptionCode.systemCanceled:
       case LocalAuthExceptionCode.userRequestedFallback:
         return const BiometricException(
           type: BiometricErrorType.userCancel,
-          message: 'Autenticación cancelada.',
+          message: 'Authentication cancelled.',
         );
       default:
         return const BiometricException(
           type: BiometricErrorType.unknown,
-          message: 'No se pudo completar la autenticación biométrica.',
+          message: 'Biometric authentication failed.',
         );
     }
   }
